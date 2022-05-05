@@ -10,10 +10,10 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 
-public class PublicKeyGenerator {
+public class StringToPublicKey {
     private PublicKey publicKey;
 
-    public PublicKeyGenerator(@NotNull String publicKeyString) throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeySpecException {
+    public StringToPublicKey(@NotNull String publicKeyString) throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeySpecException {
         byte[] keyBytes = Base64.getDecoder().decode(publicKeyString.getBytes("utf-8"));
         X509EncodedKeySpec spec = new X509EncodedKeySpec(keyBytes);
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
