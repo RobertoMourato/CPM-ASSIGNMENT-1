@@ -1,6 +1,5 @@
 package services.entities
 
-import java.security.PublicKey
 import java.util.UUID
 import javax.persistence.*
 import javax.validation.constraints.*
