@@ -6,9 +6,6 @@ import services.entities.Customer
 import services.repositories.CustomerRepository
 import services.utilities.CustomerInfo
 import services.utilities.CustomerUUID
-import services.utilities.GenerateKeys
-import services.utilities.StringToPrivateKey
-import services.utilities.StringToPublicKey
 import java.util.*
 
 @RestController
@@ -18,8 +15,8 @@ class CustomerController {
     lateinit var repository: CustomerRepository
 
     @GetMapping
-    fun index(): List<Customer>{
-        return repository.findAll()
+    fun getAll(): List<Customer>{
+        return this.repository.findAll()
     }
 
     @PostMapping
