@@ -2,4 +2,4 @@ package services.dtos
 
 import java.util.*
 
-class CustomerUUID (val uuid: UUID)
+class ResponseUUID (val uuid: UUID)

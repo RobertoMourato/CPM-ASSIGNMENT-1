@@ -1,16 +1,20 @@
 package services.entities
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.fasterxml.jackson.annotation.JsonInclude
 import javax.persistence.*
 import javax.validation.constraints.*
 
 @Entity
-@Table(name = "products")
-class Product(
+@Table(name = "items")
+@JsonIgnoreProperties(ignoreUnknown = true)
+class Item(
     @field:Id
     @field:NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
+
+    @field:NotNull
+    val quantity: Int,
 
     @field:NotNull
     val model: String,

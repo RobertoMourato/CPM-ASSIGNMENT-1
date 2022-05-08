@@ -1,5 +1,7 @@
 package services.entities
 
+import java.sql.Date
+import java.sql.Time
 import java.util.UUID
 import javax.persistence.*
 import javax.validation.constraints.NotNull
@@ -13,21 +15,14 @@ class Payment(
     val id: Long,
 
     @field:NotNull
-    val token: UUID,
+    val uuid: UUID,
 
-    @field:NotNull
-    val customerUUID: UUID,
-
-    @field:NotNull
-    @OneToMany
-    val items: List<BasketItem>,
-
-    @field:NotNull
-    val price: Double,
-
-    @field:NotNull
-    val date: String,
-
-    @field:NotNull
-    val time: String
-)
+    @OneToMany(cascade = [CascadeType.ALL])
+    @JoinColumn(name = "pi_fk", referencedColumnName = "id")
+    val items: List<Item>,
+){
+    lateinit var token: UUID;
+    var price: Double = 0.0;
+    lateinit var date: String;
+    lateinit var time: String;
+}
