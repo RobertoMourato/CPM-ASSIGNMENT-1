@@ -12,25 +12,25 @@ class Customer(
     val uuid: UUID,
 
     @field:NotNull
-    var publicKey: String,
+    val publicKey: String,
 
     @field:NotNull
-    var name: String,
+    val name: String,
 
     @field:NotNull
-    var address: String,
+    val address: String,
 
     @field:NotNull
     @field: Digits(integer = 9, fraction = 0)
-    var nif: Int,
+    val nif: Int,
 
     @field:NotNull
-    var cardType: String,
+    val cardType: String,
 
     @field:NotNull
     @field: Digits(integer = 16, fraction = 0)
-    var cardNumber: Long,
+    val cardNumber: Long,
 
     @field:NotNull
-    var cardValidity: String
+    val cardValidity: String
 )

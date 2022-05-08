@@ -2,10 +2,10 @@ package services.controllers
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
+import services.dtos.CustomerInfo
+import services.dtos.CustomerUUID
 import services.entities.Customer
 import services.repositories.CustomerRepository
-import services.utilities.CustomerInfo
-import services.utilities.CustomerUUID
 import java.util.*
 
 @RestController

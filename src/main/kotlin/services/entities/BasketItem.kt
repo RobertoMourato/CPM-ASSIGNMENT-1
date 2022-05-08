@@ -4,21 +4,17 @@ import javax.persistence.*
 import javax.validation.constraints.*
 
 @Entity
-@Table(name = "products")
-class Product(
+@Table(name = "items")
+class BasketItem(
     @field:Id
     @field:NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
 
+    @ManyToOne
     @field:NotNull
-    val model: String,
+    val product: Product,
 
     @field:NotNull
-    val make: String,
-
-    @field:NotNull
-    val price: Double,
-
-    @field:NotNull
-    val characteristic: String
+    val quantity: Int
 )
