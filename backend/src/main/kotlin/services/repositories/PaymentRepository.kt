@@ -8,4 +8,8 @@ import java.util.*
 
 @Repository
 interface PaymentRepository: JpaRepository<Payment, Long> {
+
+    @Query("select p from Payment p where p.uuid = ?1")
+    fun findByUUID(uuid: UUID): List<Payment>
+
 }

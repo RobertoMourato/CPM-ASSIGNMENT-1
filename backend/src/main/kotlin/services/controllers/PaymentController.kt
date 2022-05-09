@@ -20,6 +20,11 @@ class PaymentController {
     @Autowired
     lateinit var customerRepository: CustomerRepository
 
+    @GetMapping
+    fun getAll(@RequestHeader("Client-Id") uuid: UUID): List<Payment>{
+        return this.paymentRepository.findByUUID(uuid)
+    }
+
     @PostMapping
     fun create(@RequestBody items: String, @RequestHeader("Client-Id") uuid: UUID, @RequestHeader("Request-Time") requestTime: String, @RequestHeader("Signature") signature: String): PaymentToken {
         //val dummySignature = GenerateSignature("/payments", uuid.toString(), requestTime, "MIIBVQIBADANBgkqhkiG9w0BAQEFAASCAT8wggE7AgEAAkEAkPfH5PP+BrXuFvcroQ5er/VASWlAfhAs8OvQfIiYZyUenHVpuThO2jNxyPL95YNpZC4hMCw/Hdqv8GFYTqO3dQIDAQABAkB+27XbTwCu0qnFAwr052RIym81TpuXNYR+V32cXNQw/WMoL4OmAF8JtxoqoX8xMUmdHbp68We0RkMMN9bms5HBAiEAyZBMlvxS8c4OXTVVLJCX8lokGFWEkq7xPBxkJgpZuRkCIQC4HpC0t2V8/8L3Vv2KZggsNLmknJKcQf9EBLiXZYiQvQIhAMQawol7gO+FfPAufWnYXB0MmmWafluAHXBQZxejpluxAiBN40A78slQE7IaiAZBoeAbM0LFTCcJSzH9SDH+eclH0QIhAKYkQq4f/MEGST8OWM5zD7EEaOYFOH1qe/dijcVB87cB", items)
