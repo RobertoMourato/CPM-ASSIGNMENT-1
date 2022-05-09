@@ -14,15 +14,13 @@ class Payment(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
 
-    @field:NotNull
-    val uuid: UUID,
-
     @OneToMany(cascade = [CascadeType.ALL])
     @JoinColumn(name = "pi_fk", referencedColumnName = "id")
-    val items: List<Item>,
+    val items: List<Item>
 ){
-    lateinit var token: UUID;
-    var price: Double = 0.0;
-    lateinit var date: String;
-    lateinit var time: String;
+    lateinit var uuid: UUID
+    lateinit var token: UUID
+    var price: Double = 0.0
+    lateinit var date: String
+    lateinit var time: String
 }
