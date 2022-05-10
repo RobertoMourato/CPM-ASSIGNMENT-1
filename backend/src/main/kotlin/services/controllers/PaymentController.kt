@@ -7,7 +7,8 @@ import services.dtos.PaymentToken
 import services.entities.Payment
 import services.repositories.CustomerRepository
 import services.repositories.PaymentRepository
-import services.utilities.VerifySignature
+import services.utilities.*
+import java.security.KeyPairGenerator
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.persistence.EntityNotFoundException
@@ -63,6 +64,14 @@ class PaymentController {
 
         this.paymentRepository.save(payment)
 
-        return PaymentToken(paymentToken.toString())
+        //val keyGen = KeyPairGenerator.getInstance("RSA")
+        //keyGen.initialize(512)
+        //val pair = keyGen.generateKeyPair()
+        //val privateKey: String = Base64.getEncoder().encodeToString(pair.private.encoded)
+        //val publicKey: String = Base64.getEncoder().encodeToString(pair.public.encoded)
+        //val encryptedValue = encryptMessage(paymentToken.toString(), publicKey)
+        //val decryptedText = decryptMessage(encryptedValue, privateKey)
+
+        return PaymentToken(encryptMessage(paymentToken.toString(), customer.publicKey))
     }
 }
