@@ -2,8 +2,8 @@ package services.controllers
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
-import services.dtos.CustomerInfo
-import services.dtos.ResponseUUID
+import services.dtos.RegisterCustomer
+import services.dtos.CustomerUUID
 import services.entities.Customer
 import services.repositories.CustomerRepository
 import java.util.*
@@ -20,8 +20,8 @@ class CustomerController {
     }
 
     @PostMapping
-    fun create(@RequestBody customerInfo: CustomerInfo): ResponseUUID {
-        val customerUUID = ResponseUUID(UUID.randomUUID())
+    fun create(@RequestBody customerInfo: RegisterCustomer): CustomerUUID {
+        val customerUUID = CustomerUUID(UUID.randomUUID())
 
         val customer = Customer(customerUUID.uuid, customerInfo.publicKey, customerInfo.name, customerInfo.address, customerInfo.nif, customerInfo.cardType, customerInfo.cardNumber, customerInfo.cardValidity)
 

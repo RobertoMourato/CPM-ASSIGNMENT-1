@@ -3,7 +3,11 @@ package services.controllers
 import com.google.gson.Gson
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
+import services.dtos.CustomerInfo
+import services.dtos.PaymentInfo
 import services.dtos.PaymentToken
+import services.dtos.ReceiptInfo
+import services.entities.Customer
 import services.entities.Payment
 import services.repositories.CustomerRepository
 import services.repositories.PaymentRepository
@@ -21,7 +25,18 @@ class PaymentController {
     @Autowired
     lateinit var customerRepository: CustomerRepository
 
-    @GetMapping
+    @GetMapping("/receipt")
+    fun get(@RequestHeader("Client-Id") uuid: UUID, @RequestHeader("Token") token: UUID): ReceiptInfo{
+        val customer = this.customerRepository.findById(uuid).orElseThrow{ EntityNotFoundException() }
+        val customerInfoJson = Gson().toJson(customer, Customer::class.java)
+        val customerInfo = Gson().fromJson(customerInfoJson, CustomerInfo::class.java)
+        val payment = this.paymentRepository.findByCustomerAndToken(uuid, token).orElseThrow{ EntityNotFoundException() }
+        val paymentInfoJson = Gson().toJson(payment, Payment::class.java)
+        val paymentInfo = Gson().fromJson(paymentInfoJson, PaymentInfo::class.java)
+        return ReceiptInfo(customerInfo, paymentInfo)
+    }
+
+    @GetMapping("/past")
     fun getAll(@RequestHeader("Client-Id") uuid: UUID): List<Payment>{
         return this.paymentRepository.findByUUID(uuid)
     }
@@ -71,7 +86,7 @@ class PaymentController {
         //val publicKey: String = Base64.getEncoder().encodeToString(pair.public.encoded)
         //val encryptedValue = encryptMessage(paymentToken.toString(), publicKey)
         //val decryptedText = decryptMessage(encryptedValue, privateKey)
-
+        println(paymentToken.toString())
         return PaymentToken(encryptMessage(paymentToken.toString(), customer.publicKey))
     }
 }
