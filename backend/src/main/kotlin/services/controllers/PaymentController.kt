@@ -33,6 +33,10 @@ class PaymentController {
         val payment = this.paymentRepository.findByCustomerAndToken(uuid, token).orElseThrow{ EntityNotFoundException() }
         val paymentInfoJson = Gson().toJson(payment, Payment::class.java)
         val paymentInfo = Gson().fromJson(paymentInfoJson, PaymentInfo::class.java)
+
+        payment.token = UUID.fromString( "00000000-0000-0000-0000-000000000000" )
+        this.paymentRepository.save(payment)
+
         return ReceiptInfo(customerInfo, paymentInfo)
     }
 
