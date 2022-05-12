@@ -26,13 +26,14 @@ class PaymentController {
     lateinit var customerRepository: CustomerRepository
 
     @GetMapping("/receipt")
-    fun get(@RequestHeader("Client-Id") uuid: UUID, @RequestHeader("Token") token: UUID): ReceiptInfo{
-        val customer = this.customerRepository.findById(uuid).orElseThrow{ EntityNotFoundException() }
-        val customerInfoJson = Gson().toJson(customer, Customer::class.java)
-        val customerInfo = Gson().fromJson(customerInfoJson, CustomerInfo::class.java)
-        val payment = this.paymentRepository.findByCustomerAndToken(uuid, token).orElseThrow{ EntityNotFoundException() }
+    fun get(@RequestHeader("Token") token: UUID): ReceiptInfo{
+        val payment = this.paymentRepository.findByToken(token).orElseThrow{ EntityNotFoundException() }
         val paymentInfoJson = Gson().toJson(payment, Payment::class.java)
         val paymentInfo = Gson().fromJson(paymentInfoJson, PaymentInfo::class.java)
+
+        val customer = this.customerRepository.findById(payment.uuid).orElseThrow{ EntityNotFoundException() }
+        val customerInfoJson = Gson().toJson(customer, Customer::class.java)
+        val customerInfo = Gson().fromJson(customerInfoJson, CustomerInfo::class.java)
 
         payment.token = UUID.fromString( "00000000-0000-0000-0000-000000000000" )
         this.paymentRepository.save(payment)

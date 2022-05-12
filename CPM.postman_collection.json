@@ -131,7 +131,7 @@
 				"header": [
 					{
 						"key": "Client-Id",
-						"value": "b65ce96a-365d-42f3-ac29-7f36e33ea4e2",
+						"value": "87c2bc89-d45d-4467-a5ad-44208681c8ee",
 						"type": "text"
 					},
 					{
@@ -174,13 +174,8 @@
 				"method": "GET",
 				"header": [
 					{
-						"key": "Client-Id",
-						"value": "b65ce96a-365d-42f3-ac29-7f36e33ea4e2",
-						"type": "text"
-					},
-					{
 						"key": "Token",
-						"value": "745a4a6a-2de0-41b7-b85d-822ddbc25174",
+						"value": "dd63328b-1abd-4c40-a993-e7ae8d6c3056",
 						"type": "text"
 					}
 				],

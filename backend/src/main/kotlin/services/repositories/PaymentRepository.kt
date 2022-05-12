@@ -12,6 +12,6 @@ interface PaymentRepository: JpaRepository<Payment, Long> {
     @Query("select p from Payment p where p.uuid = ?1")
     fun findByUUID(uuid: UUID): List<Payment>
 
-    @Query("select p from Payment p where p.uuid = ?1 and p.token = ?2")
-    fun findByCustomerAndToken(uuid: UUID, token: UUID): Optional<Payment>
+    @Query("select p from Payment p where p.token = ?1")
+    fun findByToken(token: UUID): Optional<Payment>
 }
