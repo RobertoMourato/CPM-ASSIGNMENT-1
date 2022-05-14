@@ -7,9 +7,8 @@ import javax.validation.constraints.*
 @Entity
 @Table(name = "customers")
 class Customer(
-    @field:Id
     @field:NotNull
-    val uuid: UUID,
+    var uuid: UUID,
 
     @field:NotNull
     val publicKey: String,
@@ -33,4 +32,9 @@ class Customer(
 
     @field:NotNull
     val cardValidity: String
-)
+){
+    @field:Id
+    @field:NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long = 0
+}

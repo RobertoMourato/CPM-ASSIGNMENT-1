@@ -105,7 +105,17 @@
 				"header": [
 					{
 						"key": "Client-Id",
-						"value": "b1abdb8a-f348-4707-9189-6c76336b023b",
+						"value": "838dd93f-dd47-4964-9614-15a00b83ff1a",
+						"type": "text"
+					},
+					{
+						"key": "Request-Time",
+						"value": "2019-05-28T12:12:12+08:00",
+						"type": "text"
+					},
+					{
+						"key": "Signature",
+						"value": "HVEAnY4kxqJAIhy8dbPsqClN1hlwtz8D6k5g3uUloCp1hxHTindCuxVuCuoDDUkHxGuEfOeQPvNAKsDNeI7g8g%3D%3D",
 						"type": "text"
 					}
 				],
@@ -131,7 +141,7 @@
 				"header": [
 					{
 						"key": "Client-Id",
-						"value": "87c2bc89-d45d-4467-a5ad-44208681c8ee",
+						"value": "838dd93f-dd47-4964-9614-15a00b83ff1a",
 						"type": "text"
 					},
 					{
@@ -175,7 +185,7 @@
 				"header": [
 					{
 						"key": "Token",
-						"value": "dd63328b-1abd-4c40-a993-e7ae8d6c3056",
+						"value": "a2c0a3e4-2ba0-4386-839a-da4665f432bd",
 						"type": "text"
 					}
 				],
