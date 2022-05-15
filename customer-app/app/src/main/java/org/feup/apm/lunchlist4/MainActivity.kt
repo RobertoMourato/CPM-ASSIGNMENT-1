@@ -1,5 +1,6 @@
 package org.feup.apm.lunchlist4
 
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.widget.*
@@ -14,12 +15,12 @@ const val REMOTE_ADDRESS = "10.0.2.2:8080"
 var currentId: Long = -1L
 
 class MainActivity : AppCompatActivity() {
-  val regName by lazy { findViewById<EditText>(R.id.reg_name) }
-  val regAddress by lazy { findViewById<EditText>(R.id.reg_address) }
-  val regNIF by lazy { findViewById<EditText>(R.id.reg_nif) }
-  val regCardType by lazy { findViewById<EditText>(R.id.reg_card_type)}
-  val regCardNumber by lazy { findViewById<EditText>(R.id.reg_card_number)}
-  val regCardDate by lazy { findViewById<EditText>(R.id.reg_card_expiry_date)}
+  private val regName by lazy { findViewById<EditText>(R.id.reg_name) }
+  private val regAddress by lazy { findViewById<EditText>(R.id.reg_address) }
+  private val regNIF by lazy { findViewById<EditText>(R.id.reg_nif) }
+  private val regCardType by lazy { findViewById<EditText>(R.id.reg_card_type)}
+  private val regCardNumber by lazy { findViewById<EditText>(R.id.reg_card_number)}
+  private val regCardDate by lazy { findViewById<EditText>(R.id.reg_card_expiry_date)}
 
 
   @RequiresApi(Build.VERSION_CODES.O)
@@ -31,7 +32,8 @@ class MainActivity : AppCompatActivity() {
       val keyPair = generateKeyPair()
       println(regName.text)
       Thread {
-          registerUser(regName.text.toString(),
+          registerUser(this@MainActivity,
+              regName.text.toString(),
               regAddress.text.toString(),
               regNIF.text.toString().toLong(),
               regCardType.text.toString(),
@@ -39,7 +41,7 @@ class MainActivity : AppCompatActivity() {
               regCardDate.text.toString(),
               keyPair.second
           )
-      }.start()
+       }.start()
     }
   }
 

@@ -1,7 +1,10 @@
 package org.feup.apm.lunchlist4.httpRequests
 
+import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
+import org.feup.apm.lunchlist4.MainActivity
+import org.feup.apm.lunchlist4.R
 import org.feup.apm.lunchlist4.REMOTE_ADDRESS
 import org.feup.apm.lunchlist4.crypto.keyToB64
 import org.json.JSONObject
@@ -13,13 +16,14 @@ import java.security.PublicKey
 
 
 @RequiresApi(Build.VERSION_CODES.O)
-fun registerUser( name: String,
-              address: String,
-              nif: Long,
-              cardType: String,
-              cardNumber: Long,
-              cardValidity: String,
-              publicKey: PublicKey) {
+fun registerUser(activity: MainActivity,
+                 name: String,
+                 address: String,
+                 nif: Long,
+                 cardType: String,
+                 cardNumber: Long,
+                 cardValidity: String,
+                 publicKey: PublicKey) {
     val url: URL
     var urlConnection: HttpURLConnection? = null
     try {
@@ -44,7 +48,6 @@ fun registerUser( name: String,
         jsonObject.put("cardValidity", cardValidity)
         jsonObject.put("address", address)
 
-        println(jsonObject.toString())
         outputStream.writeBytes(jsonObject.toString())
         outputStream.flush()
         outputStream.close()
@@ -52,7 +55,11 @@ fun registerUser( name: String,
         val responseCode = urlConnection.responseCode
         if (responseCode == 200) {
             val responseJson = JSONObject(JSONTokener(readStream(urlConnection.inputStream)))
-            println(responseJson)
+            val sharedPref = activity.getPreferences(Context.MODE_PRIVATE)
+            with(sharedPref.edit()){
+                putString(R.string.uuid_alias.toString(), responseJson.getString("uuid"))
+                apply()
+            }
         }
         else
             println("Code: $responseCode")

@@ -23,8 +23,7 @@
   <string name="reg_card_number">Card number:</string>
   <string name="reg_card_expiry_date">Card Expiration Date:</string>
   <string name="reg_button_text">Register</string>
-  <string name="keypair_store_name_private">KeyPrivate</string>
-  <string name="keypair_store_name_public">KeyPublic</string>
   <string name="keypair_alias">PrivatePublic</string>
+  <string name="uuid_alias">UUID</string>
 
 </resources>
