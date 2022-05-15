@@ -1,86 +1,46 @@
 package org.feup.apm.lunchlist4
 
-import android.content.Context
-import android.content.Intent
-import android.database.Cursor
 import android.os.Build
 import android.os.Bundle
-import android.view.*
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import org.feup.apm.lunchlist4.crypto.generateKeyPair
-import org.feup.apm.lunchlist4.crypto.getKeyPair
-import org.feup.apm.lunchlist4.crypto.keyToB64
-import java.security.KeyStore
-import java.security.Security
-import java.util.*
+import org.feup.apm.lunchlist4.httpRequests.registerUser
 
 
 const val ID_EXTRA = "org.feup.cpm.acme.customer"
+const val REMOTE_ADDRESS = "10.0.2.2:8080"
 var currentId: Long = -1L
 
 class MainActivity : AppCompatActivity() {
-  val dbHelper by lazy { RestaurantHelper(this) }
+  val regName by lazy { findViewById<EditText>(R.id.reg_name) }
+  val regAddress by lazy { findViewById<EditText>(R.id.reg_address) }
+  val regNIF by lazy { findViewById<EditText>(R.id.reg_nif) }
+  val regCardType by lazy { findViewById<EditText>(R.id.reg_card_type)}
+  val regCardNumber by lazy { findViewById<EditText>(R.id.reg_card_number)}
+  val regCardDate by lazy { findViewById<EditText>(R.id.reg_card_expiry_date)}
+
 
   @RequiresApi(Build.VERSION_CODES.O)
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_register)
-    val registerButton = findViewById<Button>(R.id.button_register.toInt());
+    val registerButton = findViewById<Button>(R.id.button_register);
     registerButton.setOnClickListener{
       val keyPair = generateKeyPair()
-      println(keyToB64(keyPair.first))
-      val geK = getKeyPair()
-      println(keyToB64(keyPair.first))
+      println(regName.text)
+      Thread {
+          registerUser(regName.text.toString(),
+              regAddress.text.toString(),
+              regNIF.text.toString().toLong(),
+              regCardType.text.toString(),
+              regCardNumber.text.toString().toLong(),
+              regCardDate.text.toString(),
+              keyPair.second
+          )
+      }.start()
     }
   }
 
-  override fun onCreateOptionsMenu(menu: Menu): Boolean {
-    MenuInflater(this).inflate(R.menu.menu_main, menu)
-    return super.onCreateOptionsMenu(menu)
-  }
-
-  override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    return when (item.itemId) {
-      R.id.toast -> {
-        var message = "No restaurant selected"
-        if (currentId != -1L) {
-          val c = dbHelper.getById(currentId.toString())
-          c.moveToNext()
-          message = String.format("%s:\n%s", dbHelper.getName(c), dbHelper.getNotes(c))
-          c.close()
-        }
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-        true
-      }
-      R.id.add -> {
-        startActivity(Intent(this, DetailsActivity::class.java))
-        true
-      }
-      else -> super.onOptionsItemSelected(item)
-    }
-  }
-
-  private fun onRestItemClick(id: Long) {
-    currentId = id
-    startActivity(Intent(this, DetailsActivity::class.java).putExtra(ID_EXTRA, id.toString()))
-  }
-
-  inner class RestaurantAdapter(c: Cursor) : CursorAdapter(this@MainActivity, c, true) {
-    override fun newView(ctx: Context, c: Cursor, parent: ViewGroup): View {
-      val row: View = layoutInflater.inflate(R.layout.row, parent, false)
-      row.findViewById<TextView>(R.id.title).text = dbHelper.getName(c)
-      row.findViewById<TextView>(R.id.address).text = dbHelper.getAddress(c)
-      val symbol = row.findViewById<ImageView>(R.id.symbol)
-      when (dbHelper.getType(c)) {
-        "sit" -> symbol.setImageResource(R.drawable.ball_red)
-        "take" -> symbol.setImageResource(R.drawable.ball_yellow)
-        "delivery" -> symbol.setImageResource(R.drawable.ball_green)
-      }
-      return row
-    }
-
-    override fun bindView(v: View, ctx: Context, c: Cursor) {}
-  }
 }
