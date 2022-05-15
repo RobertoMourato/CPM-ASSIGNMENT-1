@@ -26,4 +26,20 @@
   <string name="keypair_alias">PrivatePublic</string>
   <string name="uuid_alias">UUID</string>
 
+<!--  Dashboard -->
+  <string name="dash_btn_scan">Scan Barcode</string>
+  <string name="dash_btn_cart">Show Cart</string>
+  <string name="dash_btn_past_orders">Show Past Orders</string>
+
+<!--  Product information -->
+  <string name="product_id_label">ID: </string>
+  <string name="product_model_label">Model: </string>
+  <string name="product_manufacturer_label">Manufacturer: </string>
+  <string name="product_price_label">Price: </string>
+  <string name="product_description_label">Description: </string>
+  <string name="product_btn_inc">+</string>
+  <string name="product_btn_dec">-</string>
+  <string name="product_btn_add_cart">Add to Cart</string>
+  <string name="product_cancel">Cancel</string>
+
 </resources>

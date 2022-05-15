@@ -11,6 +11,25 @@
 
     <TableRow
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/productIDLabel"
+            android:layout_width="113dp"
+            android:layout_height="wrap_content"
+            android:text="@string/product_id_label"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/productID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
@@ -67,25 +86,6 @@
     </TableRow>
 
     <TableRow
-        android:layout_width="76dp"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <TextView
-            android:id="@+id/productIDLabel"
-            android:layout_width="113dp"
-            android:layout_height="wrap_content"
-            android:text="@string/product_id_label"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/productID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </TableRow>
-
-    <TableRow
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -94,6 +94,7 @@
             android:id="@+id/productDescriptionLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/product_description_label"
             android:textStyle="bold" />
 
         <ScrollView

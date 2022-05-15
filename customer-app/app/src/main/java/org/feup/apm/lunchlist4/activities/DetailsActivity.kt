@@ -1,10 +1,12 @@
-package org.feup.apm.lunchlist4
+package org.feup.apm.lunchlist4.activities
 
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
+import org.feup.apm.lunchlist4.R
+import org.feup.apm.lunchlist4.RestaurantHelper
 
 class DetailsActivity : AppCompatActivity() {
   private val dbHelper by lazy { RestaurantHelper(this) }

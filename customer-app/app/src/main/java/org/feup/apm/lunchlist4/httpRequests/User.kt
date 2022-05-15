@@ -3,9 +3,9 @@ package org.feup.apm.lunchlist4.httpRequests
 import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
-import org.feup.apm.lunchlist4.MainActivity
+import org.feup.apm.lunchlist4.activities.MainActivity
 import org.feup.apm.lunchlist4.R
-import org.feup.apm.lunchlist4.REMOTE_ADDRESS
+import org.feup.apm.lunchlist4.activities.REMOTE_ADDRESS
 import org.feup.apm.lunchlist4.crypto.keyToB64
 import org.json.JSONObject
 import org.json.JSONTokener
@@ -56,6 +56,7 @@ fun registerUser(activity: MainActivity,
         if (responseCode == 200) {
             val responseJson = JSONObject(JSONTokener(readStream(urlConnection.inputStream)))
             val sharedPref = activity.getPreferences(Context.MODE_PRIVATE)
+            println("LESSGO")
             with(sharedPref.edit()){
                 putString(R.string.uuid_alias.toString(), responseJson.getString("uuid"))
                 apply()

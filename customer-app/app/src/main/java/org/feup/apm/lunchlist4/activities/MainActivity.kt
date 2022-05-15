@@ -1,17 +1,19 @@
-package org.feup.apm.lunchlist4
+package org.feup.apm.lunchlist4.activities
 
-import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import org.feup.apm.lunchlist4.R
 import org.feup.apm.lunchlist4.crypto.generateKeyPair
+import org.feup.apm.lunchlist4.crypto.getKeyPair
 import org.feup.apm.lunchlist4.httpRequests.registerUser
 
 
 const val ID_EXTRA = "org.feup.cpm.acme.customer"
-const val REMOTE_ADDRESS = "10.0.2.2:8080"
+const val REMOTE_ADDRESS = "192.168.1.85:8080"
 var currentId: Long = -1L
 
 class MainActivity : AppCompatActivity() {
@@ -26,8 +28,13 @@ class MainActivity : AppCompatActivity() {
   @RequiresApi(Build.VERSION_CODES.O)
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    val registerButton = findViewById<Button>(R.id.button_register)
+
+    val pair = getKeyPair()
+    if (pair.first != null || pair.second != null){
+        startDashboard()
+    }
     setContentView(R.layout.activity_register)
-    val registerButton = findViewById<Button>(R.id.button_register);
     registerButton.setOnClickListener{
       val keyPair = generateKeyPair()
       println(regName.text)
@@ -45,4 +52,11 @@ class MainActivity : AppCompatActivity() {
     }
   }
 
+    private fun startDashboard(){
+        val intent = Intent(this, DashboardActivity::class.java).apply {
+
+        }
+        startActivity(intent)
+        finish()
+    }
 }
