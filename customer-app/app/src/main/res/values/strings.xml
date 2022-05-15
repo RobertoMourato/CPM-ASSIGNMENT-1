@@ -1,0 +1,30 @@
+<resources>
+  <string name="app_name">Lunch List 4</string>
+  <string name="tv_name">Name:</string>
+  <string name="tv_address">Address:</string>
+  <string name="tv_type">Type:</string>
+  <string name="rb_take">Take-Out</string>
+  <string name="rb_sit">Sit-Down</string>
+  <string name="rb_delivery">Delivery</string>
+  <string name="tv_notes">Notes:</string>
+  <string name="bt_save">Save</string>
+  <string name="mn_it_toast">Raise Toast</string>
+  <string name="mn_it_add">Add new restaurant</string>
+  <string name="lv_empty_msg">Activate the menu item to add a restaurant!</string>
+  <string name="ed_name_hint">Name</string>
+  <string name="ed_address_hint">Address</string>
+  <string name="ed_notes_hint">Notes</string>
+
+<!--  Cenas Novas -->
+  <string name="reg_name">Name:</string>
+  <string name="reg_address">Address:</string>
+  <string name="reg_nif">NIF:</string>
+  <string name="reg_card_type">Card type:</string>
+  <string name="reg_card_number">Card number:</string>
+  <string name="reg_card_expiry_date">Card Expiration Date:</string>
+  <string name="reg_button_text">Register</string>
+  <string name="keypair_store_name_private">KeyPrivate</string>
+  <string name="keypair_store_name_public">KeyPublic</string>
+  <string name="keypair_alias">PrivatePublic</string>
+
+</resources>
