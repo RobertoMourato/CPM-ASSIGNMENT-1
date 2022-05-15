@@ -32,7 +32,7 @@ class DashboardActivity : AppCompatActivity(){
         qrCodeActivityLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { it ->
             if (it.resultCode == Activity.RESULT_OK){
                 println("SCAN_RESULT" + " " + it.data?.getStringExtra("SCAN_RESULT"))
-                println("SCAN_RESULT_FORMAT" + " " + it.data?.getStringExtra("SCAN_RESULT_FORMAT"))
+                it.data?.getStringExtra("SCAN_RESULT")?.let { it1 -> callAddProduct(it1) }
             }
         }
         btnShowCart.setOnClickListener {
@@ -50,7 +50,6 @@ class DashboardActivity : AppCompatActivity(){
         try {
             val intent = Intent(ACTION_SCAN)
             intent.putExtra("SCAN_MODE", if (qrcode) "QR_CODE_MODE" else "PRODUCT_MODE")
-//            startActivityForResult(intent, 0)
             qrCodeActivityLauncher.launch(intent)
         }
         catch (anfe: ActivityNotFoundException) {
@@ -69,6 +68,11 @@ class DashboardActivity : AppCompatActivity(){
         }
         downloadDialog.setNegativeButton(buttonNo, null)
         return downloadDialog.show()
+    }
+
+    private fun callAddProduct(productBarCode : String){
+        val intent = Intent(this, AddProductActivity::class.java).putExtra(R.string.product_intent_barcode.toString(), productBarCode)
+        startActivity(intent)
     }
 
 }

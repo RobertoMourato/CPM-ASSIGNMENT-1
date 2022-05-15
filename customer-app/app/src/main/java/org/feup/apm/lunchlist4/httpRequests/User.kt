@@ -56,7 +56,6 @@ fun registerUser(activity: MainActivity,
         if (responseCode == 200) {
             val responseJson = JSONObject(JSONTokener(readStream(urlConnection.inputStream)))
             val sharedPref = activity.getPreferences(Context.MODE_PRIVATE)
-            println("LESSGO")
             with(sharedPref.edit()){
                 putString(R.string.uuid_alias.toString(), responseJson.getString("uuid"))
                 apply()

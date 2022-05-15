@@ -27,6 +27,7 @@
       </intent-filter>
     </activity>
     <activity android:name=".activities.DashboardActivity" android:exported="false"/>
+    <activity android:name=".activities.AddProductActivity" android:exported="false"/>
 
   </application>
 

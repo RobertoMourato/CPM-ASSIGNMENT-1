@@ -38,8 +38,10 @@
   <string name="product_price_label">Price: </string>
   <string name="product_description_label">Description: </string>
   <string name="product_btn_inc">+</string>
+  <string name="product_btn_inc10">+10</string>
+  <string name="product_btn_dec10">-10</string>
   <string name="product_btn_dec">-</string>
   <string name="product_btn_add_cart">Add to Cart</string>
   <string name="product_cancel">Cancel</string>
-
+  <string name="product_intent_barcode">productBarCode</string>
 </resources>

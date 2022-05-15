@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         startDashboard()
     }
     setContentView(R.layout.activity_register)
-    registerButton.setOnClickListener{
+    registerButton?.setOnClickListener{
       val keyPair = generateKeyPair()
       println(regName.text)
       Thread {
