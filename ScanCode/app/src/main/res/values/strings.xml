@@ -1,0 +1,5 @@
+<resources>
+  <string name="app_name">Scan Code</string>
+  <string name="tv_title">Scan costumer token</string>
+  <string name="bt_scan_qr">Start scanning</string>
+</resources>
