@@ -36,7 +36,7 @@ class DashboardActivity : AppCompatActivity(){
             }
         }
         btnShowCart.setOnClickListener {
-            println(btnShowCart.text)
+            this.startActivity(Intent(this,CartActivity::class.java))
         }
         btnShowPastOrders.setOnClickListener {
             println(btnShowPastOrders.text)

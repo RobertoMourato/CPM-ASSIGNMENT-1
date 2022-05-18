@@ -91,8 +91,8 @@ class ShopCartDbHelper(context: Context) :
         return list
     }
 
-    fun clearDB(){
-        writableDatabase.delete(ProductEntry.TABLE_NAME,null,null)
+    fun clearDB() {
+        writableDatabase.delete(ProductEntry.TABLE_NAME, null, null)
     }
 
     private fun cursorToProduct(cursor: Cursor): Product? {
@@ -107,21 +107,21 @@ class ShopCartDbHelper(context: Context) :
                 cursor.getString(6)
                     .toInt(),
             )
-        } catch (e: Exception){
+        } catch (e: Exception) {
             return null
         }
     }
 
     fun getById(barcode: String): Product? {
         val cursor = readableDatabase.rawQuery(SQL_SELECT_ID, arrayOf(barcode))
-        if(!cursor.moveToNext()) return null
+        if (!cursor.moveToNext()) return null
         return cursorToProduct(cursor)
     }
 
     fun insert(product: Product): Long {
         val oldProduct = getById(product.id)
-        if(oldProduct != null){
-            editQty(oldProduct.id,oldProduct.quantity + product.quantity)
+        if (oldProduct != null) {
+            editQty(oldProduct.id, oldProduct.quantity + product.quantity)
             return -1
         }
         val cv = ContentValues()
@@ -138,10 +138,12 @@ class ShopCartDbHelper(context: Context) :
         val cv = ContentValues()
         val args = arrayOf(barcode.toString())
         cv.put(ProductEntry.COLUMN_NAME_QUANTITY, newQty)
-        writableDatabase.update(ProductEntry.TABLE_NAME,
+        writableDatabase.update(
+            ProductEntry.TABLE_NAME,
             cv,
             "${ProductEntry.COLUMN_NAME_BARCODE}=?",
-            args)
+            args
+        )
     }
 
 

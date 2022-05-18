@@ -44,4 +44,14 @@
   <string name="product_btn_add_cart">Add to Cart</string>
   <string name="product_cancel">Cancel</string>
   <string name="product_intent_barcode">productBarCode</string>
+
+<!--  Shopping Cart-->
+  <string name="cart_model_test">aokisdnfjkasdkjfnakjsdnfkasjdnfkjasdfnkjasdnfkjasndkjfanskjdfnjkasdnfakjsdnfkajsdnfkjasdnfkjasndkfjnaskjdfnkasjdfjkasndkjfnaskjdfnkjaskdjfnajksdnfkjasndfkjasndkfjnaskdfaskdj</string>
+  <string name="cart_qty_test">10</string>
+  <string name="cart_price_test">10€</string>
+  <string name="cart_model_label">Model</string>
+  <string name="cart_qty_label">Qty.</string>
+  <string name="cart_price_label">Price</string>
+  <string name="cart_total_label">Total:</string>
+  <string name="cart_total_test">15€</string>
 </resources>

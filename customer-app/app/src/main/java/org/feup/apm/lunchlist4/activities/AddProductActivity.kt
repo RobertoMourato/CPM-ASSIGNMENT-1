@@ -14,6 +14,7 @@ import java.lang.Integer.max
 class AddProductActivity : AppCompatActivity() {
     // DB helper
     private val dbHelper by lazy { ShopCartDbHelper(this) }
+
     //    Buttons
     private val btnQtyIncrease by lazy { findViewById<Button>(R.id.productQtyIncrease) }
     private val btnQtyDecrease by lazy { findViewById<Button>(R.id.productQtyDecrease) }
@@ -32,7 +33,8 @@ class AddProductActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_product_cart)
-        val barCode = intent.extras?.getString(R.string.product_intent_barcode.toString()).toString()
+        val barCode =
+            intent.extras?.getString(R.string.product_intent_barcode.toString()).toString()
         productID.text = barCode
         retrieveInformation()
 
@@ -46,7 +48,9 @@ class AddProductActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     fun retrieveInformation() {
         Thread {
-            val product = getProductByID(productID.text.toString())
+
+            val product = dbHelper.getById(productID.text.toString())
+                ?: getProductByID(productID.text.toString())
             this.runOnUiThread {
                 if (product != null) {
                     productModel.text = product.model
@@ -73,14 +77,15 @@ class AddProductActivity : AppCompatActivity() {
                 productPrice.text.toString().toFloat(),
                 productDescription.text as String,
                 productQuantityToAdd.text.toString().toInt()
-            ))
+            )
+        )
         if (success.toInt() == -1) println("Product ${productID.text} updated quantity on database")
         else println("Product ${productID.text} added to the database")
         this.runOnUiThread { finish() }
     }
 
-    private fun printAllProducts(){
-        for (product in dbHelper.getAll()){
+    private fun printAllProducts() {
+        for (product in dbHelper.getAll()) {
             println(product.toString())
         }
     }
