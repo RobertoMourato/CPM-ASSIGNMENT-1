@@ -54,4 +54,5 @@
   <string name="cart_price_label">Price</string>
   <string name="cart_total_label">Total:</string>
   <string name="cart_total_test">15€</string>
+  <string name="cart_pay_button">Pay</string>
 </resources>
