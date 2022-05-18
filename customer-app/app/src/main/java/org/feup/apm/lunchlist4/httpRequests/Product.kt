@@ -10,17 +10,18 @@ import java.net.URL
 
 
 data class Product(
-    @SerializedName("id") val id: Long,
+    @SerializedName("id") val id: String,
     @SerializedName("model") val model: String,
     @SerializedName("make") val manufacturer: String,
     @SerializedName("price") val price: Float,
-    @SerializedName("characteristic") val description: String
+    @SerializedName("characteristic") val description: String,
+    val quantity: Int = 0,
 )
 
-fun getProductByID(productID : String) : Product?{
+fun getProductByID(productID: String): Product? {
     val url: URL
-    var urlConnection : HttpURLConnection? = null
-    var product : Product? = null
+    var urlConnection: HttpURLConnection? = null
+    var product: Product? = null
     try {
         url = URL("http://$REMOTE_ADDRESS/products/$productID")
         println("GET " + url.toExternalForm())
@@ -29,7 +30,7 @@ fun getProductByID(productID : String) : Product?{
         urlConnection.setRequestProperty("Content-Type", "application/json")
         urlConnection.useCaches = false
         val responseCode = urlConnection.responseCode
-        if(responseCode == 200){
+        if (responseCode == 200) {
             val responseJson = JSONObject(JSONTokener(readStream(urlConnection.inputStream)))
             product = Gson().fromJson(responseJson.toString(), Product::class.java)
             println("Finish json")

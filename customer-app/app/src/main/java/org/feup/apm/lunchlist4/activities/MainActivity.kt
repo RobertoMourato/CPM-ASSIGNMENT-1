@@ -28,13 +28,13 @@ class MainActivity : AppCompatActivity() {
   @RequiresApi(Build.VERSION_CODES.O)
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    val registerButton = findViewById<Button>(R.id.button_register)
 
     val pair = getKeyPair()
     if (pair.first != null || pair.second != null){
         startDashboard()
     }
     setContentView(R.layout.activity_register)
+    val registerButton = findViewById<Button>(R.id.button_register)
     registerButton?.setOnClickListener{
       val keyPair = generateKeyPair()
       println(regName.text)
@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity() {
               regCardDate.text.toString(),
               keyPair.second
           )
+          startDashboard()
        }.start()
     }
   }
