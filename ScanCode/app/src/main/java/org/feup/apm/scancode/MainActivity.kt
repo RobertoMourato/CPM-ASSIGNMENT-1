@@ -1,33 +1,28 @@
 package org.feup.apm.scancode
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import org.feup.apm.http.Receipt
+import org.feup.apm.http.getReceiptByToken
+
 
 private const val ACTION_SCAN = "com.google.zxing.client.android.SCAN"
 
 class MainActivity : Activity() {
-  private val tvMessage by lazy { findViewById<TextView>(R.id.tv_message) }
-
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
     findViewById<Button>(R.id.bt_scan_qr).setOnClickListener { _ -> scan(true) }
-  }
-
-  override fun onSaveInstanceState(bundle: Bundle) {
-    bundle.putCharSequence("Message", tvMessage.text)
-    super.onSaveInstanceState(bundle)
-  }
-
-  override fun onRestoreInstanceState(bundle: Bundle) {
-    super.onRestoreInstanceState(bundle)
-    tvMessage.text = bundle.getCharSequence("Message")
   }
 
   fun scan(qrcode: Boolean) {
@@ -45,9 +40,22 @@ class MainActivity : Activity() {
     if (requestCode == 0) {
       if (resultCode == RESULT_OK) {
         val contents = data?.getStringExtra("SCAN_RESULT") ?: ""
-        tvMessage.text = "Message: $contents"
+        Thread {
+          val receipt = getReceiptByToken(contents)
+          startReceiptPrinting(receipt)
+        }.start()
       }
     }
+  }
+
+  @SuppressLint("SetTextI18n")
+  private fun startReceiptPrinting(receipt: Receipt?){
+    val qrButton = findViewById<Button>(R.id.bt_scan_qr)
+    qrButton.visibility = View.INVISIBLE
+    val titleText = findViewById<TextView>(R.id.title_text)
+    Handler(Looper.getMainLooper()).post(Runnable { titleText.text = "Receipt" })
+    val receiptText = findViewById<TextView>(R.id.receipt)
+    Handler(Looper.getMainLooper()).post(Runnable { receiptText.text = receipt.toString() })
   }
 
   private fun showDialog(act: Activity, title: CharSequence, message: CharSequence, buttonYes: CharSequence, buttonNo: CharSequence): AlertDialog {
