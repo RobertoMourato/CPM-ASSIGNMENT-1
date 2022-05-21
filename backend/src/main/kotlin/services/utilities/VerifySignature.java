@@ -26,8 +26,7 @@ public class VerifySignature {
             signature.initVerify(pubKey);
             signature.update(content.getBytes("UTF-8"));
 
-            this.validSignature = signature.verify(Base64.decodeBase64(URLDecoder.decode(signatureToBeVerified,
-                    "UTF-8").getBytes("UTF-8")));
+            this.validSignature = signature.verify(Base64.decodeBase64(signatureToBeVerified.getBytes("UTF-8")));
 
         } catch (Exception e) {
             throw new RuntimeException(e);

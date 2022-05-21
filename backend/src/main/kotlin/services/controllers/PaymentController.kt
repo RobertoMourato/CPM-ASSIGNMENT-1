@@ -93,9 +93,9 @@ class PaymentController {
             return PaymentToken("Unauthorized")
         }*/
 
-        if (Math.random() <= 0.05) {
-            return PaymentToken("Invalid Operation")
-        }
+//        if (Math.random() <= 0.05) {
+//            return PaymentToken("Invalid Operation")
+//        }
 
         val payment = Gson().fromJson(items, Payment::class.java)
 
