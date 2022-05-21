@@ -2,7 +2,8 @@
 	"info": {
 		"_postman_id": "8ff8df90-3d07-4b26-9330-0c37da39fc7f",
 		"name": "CPM",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13141964"
 	},
 	"item": [
 		{
@@ -105,7 +106,7 @@
 				"header": [
 					{
 						"key": "Client-Id",
-						"value": "838dd93f-dd47-4964-9614-15a00b83ff1a",
+						"value": "937abc87-0801-493a-ab78-327733a42d34",
 						"type": "text"
 					},
 					{
@@ -141,7 +142,7 @@
 				"header": [
 					{
 						"key": "Client-Id",
-						"value": "838dd93f-dd47-4964-9614-15a00b83ff1a",
+						"value": "34fdab42-9793-4732-b89a-b35f058ec285",
 						"type": "text"
 					},
 					{
@@ -185,7 +186,7 @@
 				"header": [
 					{
 						"key": "Token",
-						"value": "a2c0a3e4-2ba0-4386-839a-da4665f432bd",
+						"value": "f2893182-4413-49b7-981d-f7513fc74335",
 						"type": "text"
 					}
 				],
@@ -205,10 +206,30 @@
 			"response": []
 		}
 	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
 	"variable": [
 		{
 			"key": "Id",
-			"value": "12853478357"
+			"value": "128534783579"
 		}
 	]
 }
