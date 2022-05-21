@@ -1,9 +1,6 @@
 package org.feup.apm.lunchlist4.httpRequests
 
-import java.io.BufferedReader
-import java.io.IOException
-import java.io.InputStream
-import java.io.InputStreamReader
+import java.io.*
 
 fun readStream(input: InputStream): String {
     var reader: BufferedReader? = null
@@ -22,4 +19,5 @@ fun readStream(input: InputStream): String {
     }
     return response.toString()
 }
+
 

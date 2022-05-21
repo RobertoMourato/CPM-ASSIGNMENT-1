@@ -15,7 +15,7 @@ data class Product(
     @SerializedName("make") val manufacturer: String,
     @SerializedName("price") val price: Float,
     @SerializedName("characteristic") val description: String,
-    val quantity: Int = 0,
+    @SerializedName("quantity")  val quantity: Int = 0,
 )
 
 fun getProductByID(productID: String): Product? {

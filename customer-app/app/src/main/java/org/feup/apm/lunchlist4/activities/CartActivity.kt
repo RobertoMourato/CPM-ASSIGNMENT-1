@@ -1,14 +1,16 @@
 package org.feup.apm.lunchlist4.activities
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.View
 import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import org.feup.apm.lunchlist4.R
 import org.feup.apm.lunchlist4.entities.ShopCartDbHelper
 import org.feup.apm.lunchlist4.httpRequests.Product
+import org.feup.apm.lunchlist4.httpRequests.pay
 
 class CartActivity : AppCompatActivity() {
     // DB helper
@@ -23,12 +25,15 @@ class CartActivity : AppCompatActivity() {
 
     private var counter = 1
 
+    private lateinit var  products : List<Product>
+
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cart)
 
-        val products = dbHelper.getAll()
+        products = dbHelper.getAll()
         var totalPrice = 0.0f
         if (products.isEmpty()) payButton.visibility = View.GONE
         for (product in products){
@@ -37,12 +42,14 @@ class CartActivity : AppCompatActivity() {
         }
         totalPriceView.text = "%.2f".format(totalPrice) + "€"
 
-        payButton.setOnClickListener { _ -> pay()}
+        payButton.setOnClickListener { _ -> _pay()}
     }
 
-    private fun pay(){
-        println("Payed")
-        dbHelper.clearDB()
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun _pay(){
+        Thread(){
+            pay(products, this@CartActivity)
+        }.start()
     }
 
     @SuppressLint("SetTextI18n")
