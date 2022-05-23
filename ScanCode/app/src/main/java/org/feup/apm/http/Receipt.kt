@@ -24,6 +24,7 @@ data class Receipt(
                 .append("\n    Manufacturer: ").append(item.manufacturer)
                 .append("\n    Price: ").append(item.price)
                 .append("\n    Description: ").append(item.description)
+                .append("\n    Quantity: ").append(item.quantity)
                 .append("\n\n")
         }
         sb.append("Full price: ").append(payment.price)
@@ -51,7 +52,7 @@ data class Item(
     @SerializedName("make") val manufacturer: String,
     @SerializedName("price") val price: Float,
     @SerializedName("characteristic") val description: String,
-    val quantity: Int = 0,
+    @SerializedName("quantity") val quantity: Int
 )
 
 
