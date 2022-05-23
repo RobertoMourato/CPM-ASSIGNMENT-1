@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull
 @Entity
 @Table(name = "payments")
 class Payment(
-    @OneToMany(cascade = [CascadeType.MERGE], mappedBy = )
+    @OneToMany(cascade = [CascadeType.ALL])
     @JoinColumn(name = "pi_fk", referencedColumnName = "id")
     val items: List<Item>
 ){

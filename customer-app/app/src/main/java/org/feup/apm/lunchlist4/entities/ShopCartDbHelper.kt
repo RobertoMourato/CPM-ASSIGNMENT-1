@@ -9,6 +9,12 @@ import android.provider.BaseColumns
 import org.feup.apm.lunchlist4.httpRequests.Product
 import java.lang.Exception
 
+
+// If you change the database schema, you must increment the database version.
+const val DATABASE_VERSION = 1
+const val DATABASE_NAME = "ACMEShoppingCart.db"
+
+
 class ShopCartDbHelper(context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
@@ -74,12 +80,6 @@ class ShopCartDbHelper(context: Context) :
         onUpgrade(db, oldVersion, newVersion)
     }
 
-    companion object {
-        // If you change the database schema, you must increment the database version.
-        const val DATABASE_VERSION = 1
-        const val DATABASE_NAME = "ACMEShoppingCart.db"
-    }
-
     fun getAll(): List<Product> {
         val cursor = readableDatabase.rawQuery(SQL_SELECT_ALL, null)
         val list = generateSequence { if (cursor.moveToNext()) cursor else null }
@@ -96,8 +96,8 @@ class ShopCartDbHelper(context: Context) :
     }
 
     private fun cursorToProduct(cursor: Cursor): Product? {
-        try {
-            return Product(
+        return try {
+            Product(
                 cursor.getString(1),
                 cursor.getString(2),
                 cursor.getString(3),
@@ -108,7 +108,7 @@ class ShopCartDbHelper(context: Context) :
                     .toInt(),
             )
         } catch (e: Exception) {
-            return null
+            null
         }
     }
 
@@ -119,9 +119,9 @@ class ShopCartDbHelper(context: Context) :
     }
 
     fun insert(product: Product): Long {
-        val oldProduct = getById(product.id)
+        val oldProduct = product.id?.let { getById(it) }
         if (oldProduct != null) {
-            editQty(oldProduct.id, oldProduct.quantity + product.quantity)
+            oldProduct.id?.let { editQty(it, oldProduct.quantity + product.quantity) }
             return -1
         }
         val cv = ContentValues()

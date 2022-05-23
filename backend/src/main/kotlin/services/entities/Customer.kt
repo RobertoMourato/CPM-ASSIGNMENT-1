@@ -11,7 +11,7 @@ class Customer(
     var uuid: UUID,
 
     @field:NotNull
-    @Column(length = 10000000)
+    @field:Lob
     val publicKey: String,
 
     @field:NotNull

@@ -89,13 +89,13 @@ class PaymentController {
         val signatureVerifier =
             VerifySignature("/payments", uuid.toString(), requestTime, customer.publicKey, items, signature)
 
-        /*if(!signatureVerifier.isValidSignature){
+        if(!signatureVerifier.isValidSignature){
             return PaymentToken("Unauthorized")
-        }*/
+        }
 
-//        if (Math.random() <= 0.05) {
-//            return PaymentToken("Invalid Operation")
-//        }
+        if (Math.random() <= 0.05) {
+            return PaymentToken("Invalid Operation")
+        }
 
         val payment = Gson().fromJson(items, Payment::class.java)
 
@@ -120,13 +120,6 @@ class PaymentController {
 
         this.paymentRepository.save(payment)
 
-        //val keyGen = KeyPairGenerator.getInstance("RSA")
-        //keyGen.initialize(512)
-        //val pair = keyGen.generateKeyPair()
-        //val privateKey: String = Base64.getEncoder().encodeToString(pair.private.encoded)
-        //val publicKey: String = Base64.getEncoder().encodeToString(pair.public.encoded)
-        //val encryptedValue = encryptMessage(paymentToken.toString(), publicKey)
-        //val decryptedText = decryptMessage(encryptedValue, privateKey)
         println(paymentToken.toString())
         return PaymentToken(encryptMessage(paymentToken.toString(), customer.publicKey))
     }

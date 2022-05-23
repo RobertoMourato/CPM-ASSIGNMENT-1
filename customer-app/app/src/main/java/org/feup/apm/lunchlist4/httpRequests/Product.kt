@@ -10,7 +10,7 @@ import java.net.URL
 
 
 data class Product(
-    @SerializedName("id") val id: String,
+    @SerializedName("id") var id: String?,
     @SerializedName("model") val model: String,
     @SerializedName("make") val manufacturer: String,
     @SerializedName("price") val price: Float,
