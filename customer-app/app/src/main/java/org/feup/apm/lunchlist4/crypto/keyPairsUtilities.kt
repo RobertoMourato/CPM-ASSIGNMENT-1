@@ -27,6 +27,8 @@ fun generateKeyPair(): Pair<PrivateKey, PublicKey> {
         setSignaturePaddings(KeyProperties.SIGNATURE_PADDING_RSA_PKCS1) //Set of padding schemes with which the key can be used when signing/verifying
         setBlockModes(KeyProperties.BLOCK_MODE_ECB)
         setKeySize(512)
+        setUserAuthenticationRequired(false)
+        setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_RSA_PKCS1)
         build()
     }
     generator.initialize(parameterSpec)
@@ -66,8 +68,7 @@ fun decrypt(body: String, decode: Boolean = false): String {
     val cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding")
     cipher.init(Cipher.DECRYPT_MODE, kp.first)
     return String(
-        cipher.doFinal(
-            (if (!decode) body else Base64.getDecoder().decode(body)) as ByteArray?
-        )
+        cipher.doFinal(Base64.getDecoder().
+        decode(body.toByteArray(charset("UTF-8"))))
     )
 }

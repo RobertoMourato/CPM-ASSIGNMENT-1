@@ -61,16 +61,16 @@ class PaymentController {
             val paymentInfoJson = Gson().toJson(pastPayment, Payment::class.java)
             val paymentInfo = Gson().fromJson(paymentInfoJson, PaymentInfo::class.java)
             listOfPastPayments.add(listOfPastPayments.size, paymentInfo)
-            pastPayment.apply {
-                this.uuid = customerNewUUID
-            }
+//            pastPayment.apply {
+//                this.uuid = customerNewUUID
+//            }
         }
-        this.paymentRepository.saveAll(pastPayments)
+//        this.paymentRepository.saveAll(pastPayments)
 
-        customer.apply {
-            this.uuid = customerNewUUID
-        }
-        this.customerRepository.save(customer)
+//        customer.apply {
+//            this.uuid = customerNewUUID
+//        }
+//        this.customerRepository.save(customer)
 
         println(customerNewUUID.toString())
         return PastPayments(encryptMessage(customerNewUUID.toString(), customer.publicKey), listOfPastPayments)
