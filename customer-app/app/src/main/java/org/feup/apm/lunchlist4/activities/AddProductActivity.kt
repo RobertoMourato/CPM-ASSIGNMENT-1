@@ -6,14 +6,14 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import org.feup.apm.lunchlist4.R
-import org.feup.apm.lunchlist4.entities.ShopCartDbHelper
+import org.feup.apm.lunchlist4.entities.SQLiteDbHelper
 import org.feup.apm.lunchlist4.httpRequests.Product
 import org.feup.apm.lunchlist4.httpRequests.getProductByID
 import java.lang.Integer.max
 
 class AddProductActivity : AppCompatActivity() {
     // DB helper
-    private val dbHelper by lazy { ShopCartDbHelper(this) }
+    private val dbHelper by lazy { SQLiteDbHelper(this) }
 
     //    Buttons
     private val btnQtyIncrease by lazy { findViewById<Button>(R.id.productQtyIncrease) }
@@ -49,7 +49,7 @@ class AddProductActivity : AppCompatActivity() {
     fun retrieveInformation() {
         Thread {
 
-            val product = dbHelper.getById(productID.text.toString())
+            val product = dbHelper.getProductById(productID.text.toString())
                 ?: getProductByID(productID.text.toString())
             this.runOnUiThread {
                 if (product != null) {

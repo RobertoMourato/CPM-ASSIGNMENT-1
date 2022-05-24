@@ -6,16 +6,24 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.provider.BaseColumns
+import com.google.gson.annotations.SerializedName
 import org.feup.apm.lunchlist4.httpRequests.Product
 import java.lang.Exception
+import java.net.URLDecoder
+import java.net.URLEncoder
 
 
 // If you change the database schema, you must increment the database version.
-const val DATABASE_VERSION = 1
+const val DATABASE_VERSION = 2
 const val DATABASE_NAME = "ACMEShoppingCart.db"
 
+data class Token(
+    @SerializedName("token") val token: String,
+    val requestDate: String?
+)
 
-class ShopCartDbHelper(context: Context) :
+
+class SQLiteDbHelper(context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     // Table contents are grouped together in an anonymous object.
@@ -30,7 +38,14 @@ class ShopCartDbHelper(context: Context) :
 
     }
 
-    private val SQL_CREATE_ENTRIES =
+    companion object TokenEntry : BaseColumns {
+        const val TABLE_NAME = "token"
+        const val COLUMN_NAME_REQUEST_DATE = "requestDate"
+        const val COLUMN_NAME_TOKEN = "token_value"
+    }
+
+
+    private val SQL_CREATE_PRODUCT_ENTRIES =
         "CREATE TABLE ${ProductEntry.TABLE_NAME} (" +
                 "${BaseColumns._ID} INTEGER PRIMARY KEY," +
                 "${ProductEntry.COLUMN_NAME_BARCODE} TEXT," +
@@ -41,7 +56,12 @@ class ShopCartDbHelper(context: Context) :
                 "${ProductEntry.COLUMN_NAME_QUANTITY} INTEGER)"
 
 
-    private val SQL_DROP_TABLE = "DROP TABLE IF EXISTS ${ProductEntry.TABLE_NAME}"
+    private val SQL_CREATE_TOKEN_ENTRIES = "CREATE TABLE $TABLE_NAME (" +
+            "${BaseColumns._ID} INTEGER PRIMARY KEY, " +
+            "$COLUMN_NAME_REQUEST_DATE TEXT NOT NULL, " +
+            "$COLUMN_NAME_TOKEN TEXT NOT NULL)"
+
+    private val SQL_DROP_TABLE_PRODUCT = "DROP TABLE IF EXISTS ${ProductEntry.TABLE_NAME}"
 
 
     private val SQL_SELECT_ALL =
@@ -66,13 +86,14 @@ class ShopCartDbHelper(context: Context) :
 
 
     override fun onCreate(db: SQLiteDatabase) {
-        db.execSQL(SQL_CREATE_ENTRIES)
+        db.execSQL(SQL_CREATE_PRODUCT_ENTRIES)
+        db.execSQL(SQL_CREATE_TOKEN_ENTRIES)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         // This database is only a cache for online data, so its upgrade policy is
         // to simply to discard the data and start over
-        db.execSQL(SQL_DROP_TABLE)
+        db.execSQL(SQL_DROP_TABLE_PRODUCT)
         onCreate(db)
     }
 
@@ -91,8 +112,12 @@ class ShopCartDbHelper(context: Context) :
         return list
     }
 
-    fun clearDB() {
+    fun clearProducts() {
         writableDatabase.delete(ProductEntry.TABLE_NAME, null, null)
+    }
+
+    fun clearTokens() {
+        writableDatabase.delete(TABLE_NAME, null, null)
     }
 
     private fun cursorToProduct(cursor: Cursor): Product? {
@@ -112,14 +137,36 @@ class ShopCartDbHelper(context: Context) :
         }
     }
 
-    fun getById(barcode: String): Product? {
+
+    fun cursorToToken(cursor: Cursor): Token? {
+        return try {
+            Token(
+                URLDecoder.decode(cursor.getString(1), "UTF-8"),
+                cursor.getString(2)
+            )
+        } catch (e: Exception) {
+            println(e)
+            null
+        }
+    }
+
+    fun getToken(date: String): Token? {
+        return cursorToToken(
+            readableDatabase.query(TABLE_NAME, arrayOf(COLUMN_NAME_TOKEN), "$COLUMN_NAME_REQUEST_DATE=?",
+                arrayOf(date), null, null, null
+            )
+        )
+    }
+
+
+    fun getProductById(barcode: String): Product? {
         val cursor = readableDatabase.rawQuery(SQL_SELECT_ID, arrayOf(barcode))
         if (!cursor.moveToNext()) return null
         return cursorToProduct(cursor)
     }
 
     fun insert(product: Product): Long {
-        val oldProduct = product.id?.let { getById(it) }
+        val oldProduct = product.id?.let { getProductById(it) }
         if (oldProduct != null) {
             oldProduct.id?.let { editQty(it, oldProduct.quantity + product.quantity) }
             return -1
@@ -134,6 +181,14 @@ class ShopCartDbHelper(context: Context) :
         return writableDatabase.insert(ProductEntry.TABLE_NAME, null, cv)
     }
 
+    fun insert(token: Token): Long {
+        val cv = ContentValues()
+        cv.put(COLUMN_NAME_TOKEN, URLEncoder.encode(token.token, "UTF-8"))
+        cv.put(COLUMN_NAME_REQUEST_DATE, token.requestDate)
+        return writableDatabase.insert(TABLE_NAME,null, cv)
+    }
+
+
     fun editQty(barcode: String, newQty: Int) {
         val cv = ContentValues()
         val args = arrayOf(barcode.toString())
@@ -146,6 +201,15 @@ class ShopCartDbHelper(context: Context) :
         )
     }
 
+    fun delete(token: Token): Int {
+        return writableDatabase.delete(TABLE_NAME,
+            "$COLUMN_NAME_TOKEN=? AND $COLUMN_NAME_REQUEST_DATE=?",
+            arrayOf(
+                token.token,
+                token.requestDate
+            )
+        )
+    }
 
 }
 

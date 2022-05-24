@@ -55,4 +55,10 @@
   <string name="cart_total_label">Total:</string>
   <string name="cart_total_test">15€</string>
   <string name="cart_pay_button">Pay</string>
+
+
+<!--  Past Order -->
+  <string name="past_order_date_label">Order Date</string>
+  <string name="past_order_title">Select a past order</string>
+  <string name="lkanmsdkf">lkanmsdkf</string>
 </resources>

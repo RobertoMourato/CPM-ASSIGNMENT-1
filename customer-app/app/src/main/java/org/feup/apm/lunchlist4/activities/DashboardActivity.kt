@@ -39,7 +39,7 @@ class DashboardActivity : AppCompatActivity(){
             this.startActivity(Intent(this,CartActivity::class.java))
         }
         btnShowPastOrders.setOnClickListener {
-            println(btnShowPastOrders.text)
+            pastOrders()
         }
         btnScanBarCode.setOnClickListener {
             scan(false)
@@ -72,6 +72,11 @@ class DashboardActivity : AppCompatActivity(){
 
     private fun callAddProduct(productBarCode : String){
         val intent = Intent(this, AddProductActivity::class.java).putExtra(R.string.product_intent_barcode.toString(), productBarCode)
+        startActivity(intent)
+    }
+
+    private fun pastOrders(){
+        val intent = Intent(this, PastOrdersActivity::class.java)
         startActivity(intent)
     }
 

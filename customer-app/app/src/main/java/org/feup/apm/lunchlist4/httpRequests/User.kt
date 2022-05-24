@@ -17,6 +17,7 @@ import org.json.JSONObject
 import org.json.JSONTokener
 import java.io.DataOutputStream
 import java.io.OutputStreamWriter
+import java.io.Serializable
 import java.net.HttpURLConnection
 import java.net.URL
 import java.net.URLEncoder
@@ -68,12 +69,7 @@ fun registerUser(
         val responseCode = urlConnection.responseCode
         if (responseCode == 200) {
             val responseJson = JSONObject(JSONTokener(readStream(urlConnection.inputStream)))
-            val sharedPref =
-                activity.getSharedPreferences(R.string.uuid_alias.toString(), Context.MODE_PRIVATE)
-            with(sharedPref.edit()) {
-                putString(R.string.uuid_alias.toString(), responseJson.getString("uuid"))
-                apply()
-            }
+            setUUID(activity, responseJson.getString("uuid"))
         } else
             println("Code: $responseCode")
 
@@ -88,6 +84,15 @@ fun getUUID(activity: Activity): String? {
     val sharedPref =
         activity.getSharedPreferences(R.string.uuid_alias.toString(), Context.MODE_PRIVATE)
     return sharedPref.getString(R.string.uuid_alias.toString(), "")
+}
+
+fun setUUID(activity: Activity, uuid: String) {
+    val sharedPref =
+        activity.getSharedPreferences(R.string.uuid_alias.toString(), Context.MODE_PRIVATE)
+    with(sharedPref.edit()) {
+        putString(R.string.uuid_alias.toString(), uuid)
+        apply()
+    }
 }
 
 fun getSignature(body: String): ByteArray? {
@@ -161,4 +166,66 @@ fun pay(products: List<Product>, activity: Activity): Token? {
     }
     return token
 
+}
+
+data class PaymentInfo(
+    @SerializedName("items") val products: List<Product>,
+    @SerializedName("price") val price: Double = 0.0,
+    @SerializedName("date") val date: String,
+    @SerializedName("time") val time: String
+) : Serializable
+
+@RequiresApi(Build.VERSION_CODES.O)
+fun getAllPastOrders(
+    activity: Activity
+): List<PaymentInfo> {
+
+    data class Response(
+        @SerializedName("uuid") val userID: String,
+        @SerializedName("payments") val payments: List<PaymentInfo>
+    )
+
+    var paymentInfo: List<PaymentInfo> = emptyList()
+    val userID = getUUID(activity)
+    val url: URL
+    var urlConnection: HttpURLConnection? = null
+    val uri = "/payments/past"
+    try {
+        url = URL(
+            "http://$REMOTE_ADDRESS$uri"
+        )
+        println("GET " + url.toExternalForm())
+        urlConnection = url.openConnection() as HttpURLConnection
+        urlConnection.doInput = true
+        urlConnection.useCaches = false
+        urlConnection.requestMethod = "GET"
+
+        // Header
+        val requestTime = LocalDateTime.now().toString()
+        val signature = getSignature(
+            "POST $uri\n$userID.$requestTime."
+        )
+        urlConnection.addRequestProperty("Content-Type", "application/json")
+        urlConnection.addRequestProperty(
+            "Signature",
+            URLEncoder.encode(Base64.getEncoder().encodeToString(signature), "UTF-8")
+        )
+        urlConnection.addRequestProperty("Client-Id", userID)
+        urlConnection.addRequestProperty("Request-Time", requestTime)
+
+
+        val responseCode = urlConnection.responseCode
+        if (responseCode == 200) {
+            val responseBody =
+                Gson().fromJson(readStream(urlConnection.inputStream), Response::class.java)
+            setUUID(activity, decrypt(responseBody.userID))
+            println("Success GET $uri")
+            paymentInfo = responseBody.payments
+        }
+    } catch (e: java.lang.Exception) {
+        println(e)
+    } finally {
+        urlConnection?.disconnect()
+    }
+    return paymentInfo
 }

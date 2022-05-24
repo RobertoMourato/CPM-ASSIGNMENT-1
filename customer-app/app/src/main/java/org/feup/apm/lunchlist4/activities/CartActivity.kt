@@ -8,15 +8,13 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import org.feup.apm.lunchlist4.R
-import org.feup.apm.lunchlist4.entities.ShopCartDbHelper
-import org.feup.apm.lunchlist4.entities.TokenDbHelper
+import org.feup.apm.lunchlist4.entities.SQLiteDbHelper
 import org.feup.apm.lunchlist4.httpRequests.Product
 import org.feup.apm.lunchlist4.httpRequests.pay
 
 class CartActivity : AppCompatActivity() {
     // DB helper
-    private val cartDbHelper by lazy { ShopCartDbHelper(this) }
-    private val tokenDbHelper by lazy { TokenDbHelper(this) }
+    private val dbHelper by lazy { SQLiteDbHelper(this) }
 
     //    TextViews
     private val cartTableLayout by lazy { findViewById<TableLayout>(R.id.cartTableLayout) }
@@ -35,7 +33,7 @@ class CartActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cart)
 
-        products = cartDbHelper.getAll()
+        products = dbHelper.getAll()
         var totalPrice = 0.0f
         if (products.isEmpty()) payButton.visibility = View.GONE
         for (product in products){
@@ -52,8 +50,8 @@ class CartActivity : AppCompatActivity() {
         Thread(){
             val token = pay(products, this@CartActivity)
             if(token != null){
-                cartDbHelper.clearDB()
-                tokenDbHelper.insert(token)
+                dbHelper.clearProducts()
+                dbHelper.insert(token)
                 runOnUiThread{
                     finish()
                 }
