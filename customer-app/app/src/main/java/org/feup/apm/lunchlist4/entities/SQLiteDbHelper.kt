@@ -5,12 +5,16 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.os.Build
 import android.provider.BaseColumns
+import androidx.annotation.RequiresApi
 import com.google.gson.annotations.SerializedName
+import org.feup.apm.lunchlist4.crypto.decrypt
 import org.feup.apm.lunchlist4.httpRequests.Product
 import java.lang.Exception
 import java.net.URLDecoder
 import java.net.URLEncoder
+import java.util.*
 
 
 // If you change the database schema, you must increment the database version.
@@ -84,6 +88,10 @@ class SQLiteDbHelper(context: Context) :
             " FROM ${ProductEntry.TABLE_NAME}" +
             " WHERE ${ProductEntry.COLUMN_NAME_BARCODE}=?"
 
+    private val SQL_SELECT_TOKEN = "SELECT $COLUMN_NAME_REQUEST_DATE,$COLUMN_NAME_TOKEN " +
+            "FROM $TABLE_NAME " +
+            "WHERE $COLUMN_NAME_REQUEST_DATE=?"
+
 
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(SQL_CREATE_PRODUCT_ENTRIES)
@@ -138,24 +146,35 @@ class SQLiteDbHelper(context: Context) :
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun cursorToToken(cursor: Cursor): Token? {
+        val encrypted : String = cursor.getString(1) ?: ""
+        val encoded = URLDecoder.decode(encrypted, "UTF-8")
+        val token = decrypt(encoded)
         return try {
-            Token(
-                URLDecoder.decode(cursor.getString(1), "UTF-8"),
-                cursor.getString(2)
-            )
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                Token(
+                    token,
+                    cursor.getString(0)
+                )
+            } else {
+                TODO("VERSION.SDK_INT < O")
+            }
         } catch (e: Exception) {
             println(e)
             null
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun getToken(date: String): Token? {
-        return cursorToToken(
-            readableDatabase.query(TABLE_NAME, arrayOf(COLUMN_NAME_TOKEN), "$COLUMN_NAME_REQUEST_DATE=?",
-                arrayOf(date), null, null, null
-            )
-        )
+//        val cursor = readableDatabase.query(
+//            TABLE_NAME,
+//            arrayOf(COLUMN_NAME_TOKEN, COLUMN_NAME_REQUEST_DATE), "$COLUMN_NAME_REQUEST_DATE=?",
+//            arrayOf(date), null, null, null
+//        )
+        val cursor = readableDatabase.rawQuery(SQL_SELECT_TOKEN, arrayOf(date))
+        return if (cursor.moveToNext()) cursorToToken(cursor) else null
     }
 
 
@@ -185,7 +204,7 @@ class SQLiteDbHelper(context: Context) :
         val cv = ContentValues()
         cv.put(COLUMN_NAME_TOKEN, URLEncoder.encode(token.token, "UTF-8"))
         cv.put(COLUMN_NAME_REQUEST_DATE, token.requestDate)
-        return writableDatabase.insert(TABLE_NAME,null, cv)
+        return writableDatabase.insert(TABLE_NAME, null, cv)
     }
 
 
@@ -202,7 +221,8 @@ class SQLiteDbHelper(context: Context) :
     }
 
     fun delete(token: Token): Int {
-        return writableDatabase.delete(TABLE_NAME,
+        return writableDatabase.delete(
+            TABLE_NAME,
             "$COLUMN_NAME_TOKEN=? AND $COLUMN_NAME_REQUEST_DATE=?",
             arrayOf(
                 token.token,

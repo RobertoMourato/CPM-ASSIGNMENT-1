@@ -1,5 +1,6 @@
 package org.feup.apm.lunchlist4.activities
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -17,47 +18,46 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-class PastOrdersActivity: AppCompatActivity() {
-    private val tableLayout by lazy { findViewById<TableLayout>(R.id.pastOrderTable)}
+class PastOrdersActivity : AppCompatActivity() {
+    private val tableLayout by lazy { findViewById<TableLayout>(R.id.pastOrderTable) }
     private var counter = 1
-    private var payments : List<PaymentInfo> = emptyList()
+    private var payments: List<PaymentInfo> = emptyList()
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_past_orders)
 
-        Thread{
+        Thread {
             payments = getAllPastOrders(this@PastOrdersActivity)
-            payments.forEach {
-                addRow(it)
+
+            runOnUiThread {
+                payments.forEach {
+                    addRow(it)
+                    println(it)
+                }
             }
         }.start()
 
     }
 
-
+    @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
-    fun addRow(paymentInfo: PaymentInfo){
+    fun addRow(paymentInfo: PaymentInfo) {
         val inflater = layoutInflater
         val rowView = inflater.inflate(R.layout.activity_past_orders_row, null)
 
         val dateTextView = rowView.findViewById<TextView>(R.id.pastOrderDate)
-//        dateTextView?.text = token.requestDate
-        dateTextView?.text =
-            LocalDate.parse(paymentInfo.date + "T" + paymentInfo.time, DateTimeFormatter.ofPattern("dd/MM/yyyyTHH:mm:ss"))
-                .toString()
+        dateTextView?.text = "${paymentInfo.date} ${paymentInfo.time}"
 
-
-
-        rowView.setOnClickListener{
+        rowView.setOnClickListener {
             val intent = Intent(this, QRCodeActivity::class.java).apply {
                 putExtra("payment", paymentInfo)
             }
             startActivity(intent)
-            finish()
         }
 
-        tableLayout.addView(rowView,counter)
+        tableLayout.addView(rowView, counter)
         counter++
     }
 }

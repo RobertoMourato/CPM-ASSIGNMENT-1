@@ -11,6 +11,8 @@ import services.repositories.PaymentRepository
 import services.utilities.VerifySignature
 import services.utilities.encryptMessage
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 import javax.persistence.EntityNotFoundException
 
@@ -61,16 +63,16 @@ class PaymentController {
             val paymentInfoJson = Gson().toJson(pastPayment, Payment::class.java)
             val paymentInfo = Gson().fromJson(paymentInfoJson, PaymentInfo::class.java)
             listOfPastPayments.add(listOfPastPayments.size, paymentInfo)
-//            pastPayment.apply {
-//                this.uuid = customerNewUUID
-//            }
+            pastPayment.apply {
+                this.uuid = customerNewUUID
+            }
         }
-//        this.paymentRepository.saveAll(pastPayments)
+        this.paymentRepository.saveAll(pastPayments)
 
-//        customer.apply {
-//            this.uuid = customerNewUUID
-//        }
-//        this.customerRepository.save(customer)
+        customer.apply {
+            this.uuid = customerNewUUID
+        }
+        this.customerRepository.save(customer)
 
         println(customerNewUUID.toString())
         return PastPayments(encryptMessage(customerNewUUID.toString(), customer.publicKey), listOfPastPayments)
@@ -89,7 +91,7 @@ class PaymentController {
         val signatureVerifier =
             VerifySignature("/payments", uuid.toString(), requestTime, customer.publicKey, items, signature)
 
-        if(!signatureVerifier.isValidSignature){
+        if (!signatureVerifier.isValidSignature) {
             return PaymentToken("Unauthorized")
         }
 
@@ -110,13 +112,9 @@ class PaymentController {
         }
         payment.price = price
 
-        val sdfDate = SimpleDateFormat("dd/M/yyyy")
-        val date = sdfDate.format(Date())
-        payment.date = date.toString()
-
-        val sdfTime = SimpleDateFormat("HH:mm:ss")
-        val time = sdfTime.format(Date())
-        payment.time = time.toString()
+        val splitted = requestTime.split(" ") 
+        payment.date = splitted[0]
+        payment.time = splitted[1]
 
         this.paymentRepository.save(payment)
 

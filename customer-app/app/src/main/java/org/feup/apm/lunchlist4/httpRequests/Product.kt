@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName
 import org.feup.apm.lunchlist4.activities.REMOTE_ADDRESS
 import org.json.JSONObject
 import org.json.JSONTokener
+import java.io.Serializable
 import java.net.HttpURLConnection
 import java.net.URL
 
@@ -16,7 +17,7 @@ data class Product(
     @SerializedName("price") val price: Float,
     @SerializedName("characteristic") val description: String,
     @SerializedName("quantity")  val quantity: Int = 0,
-)
+) : Serializable
 
 fun getProductByID(productID: String): Product? {
     val url: URL

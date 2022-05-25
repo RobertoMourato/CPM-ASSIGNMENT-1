@@ -6,13 +6,13 @@
 
     <TextView
         android:id="@+id/pastOrderDate"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:ellipsize="end"
         android:gravity="clip_horizontal|left"
         android:maxLines="1"
         android:padding="18dip"
-        />
+        android:textSize="24sp" />
 
 
 </TableRow>

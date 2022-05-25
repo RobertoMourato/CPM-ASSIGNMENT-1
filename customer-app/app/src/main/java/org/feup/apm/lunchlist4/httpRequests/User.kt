@@ -24,6 +24,7 @@ import java.net.URLEncoder
 import java.security.PublicKey
 import java.security.Signature
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -131,10 +132,10 @@ fun pay(products: List<Product>, activity: Activity): Token? {
         urlConnection.requestMethod = "POST"
 
         // Header
-        val requestTime = LocalDateTime.now().toString()
+        val requestTimeString = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))
         val signature = getSignature(
             String.format(
-                "POST %s\n%s.%s.%s", uri, userID, requestTime, body.toString()
+                "POST %s\n%s.%s.%s", uri, userID, requestTimeString, body.toString()
             )
         )
         urlConnection.addRequestProperty("Content-Type", "application/json")
@@ -143,7 +144,7 @@ fun pay(products: List<Product>, activity: Activity): Token? {
             URLEncoder.encode(Base64.getEncoder().encodeToString(signature), "UTF-8")
         )
         urlConnection.addRequestProperty("Client-Id", userID)
-        urlConnection.addRequestProperty("Request-Time", requestTime)
+        urlConnection.addRequestProperty("Request-Time", requestTimeString)
 
         val outputStreamWriter = OutputStreamWriter(urlConnection.outputStream)
         outputStreamWriter.write(body)
@@ -156,7 +157,7 @@ fun pay(products: List<Product>, activity: Activity): Token? {
             println("Success POST")
             token = Token(
                 responseBody.getString("token"),
-                requestTime
+                requestTimeString
             )
         }
     } catch (e: java.lang.Exception) {
