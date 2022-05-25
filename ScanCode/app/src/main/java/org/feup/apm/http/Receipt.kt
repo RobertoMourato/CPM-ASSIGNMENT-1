@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName
 import com.google.gson.Gson
 
 
-const val REMOTE_ADDRESS = "192.168.1.72:8080"
+const val REMOTE_ADDRESS = "192.168.1.85:8080"
 
 data class Receipt(
     val customer: Customer,
