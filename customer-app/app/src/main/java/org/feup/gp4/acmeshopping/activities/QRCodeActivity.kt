@@ -1,4 +1,4 @@
-package org.feup.apm.lunchlist4.activities
+package org.feup.gp4.acmeshopping.activities
 
 import android.content.Intent
 import android.graphics.Bitmap
@@ -7,17 +7,16 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.common.BitMatrix
-import org.feup.apm.lunchlist4.R
-import org.feup.apm.lunchlist4.addBackButton
-import org.feup.apm.lunchlist4.entities.SQLiteDbHelper
-import org.feup.apm.lunchlist4.httpRequests.PaymentInfo
+import org.feup.gp4.acmeshopping.R
+import org.feup.gp4.acmeshopping.addBackButton
+import org.feup.gp4.acmeshopping.entities.SQLiteDbHelper
+import org.feup.gp4.acmeshopping.httpRequests.PaymentInfo
 import java.util.*
 
 class QRCodeActivity : AppCompatActivity() {

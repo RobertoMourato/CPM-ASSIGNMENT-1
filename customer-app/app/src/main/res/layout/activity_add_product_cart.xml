@@ -7,7 +7,8 @@
     android:layout_marginLeft="5dp"
     android:layout_marginTop="30dp"
     android:layout_marginEnd="5dp"
-    android:layout_weight="1">
+    android:layout_weight="1"
+    android:id="@+id/productTable">
 
     <TableRow
         android:padding="15dp"
@@ -117,6 +118,7 @@
     </TableRow>
 
     <TableRow
+        android:padding="15dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -137,6 +139,7 @@
     </TableRow>
 
     <TableRow
+        android:padding="15dp"
         android:id="@+id/TableRow"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -170,6 +173,7 @@
     </TableRow>
 
     <TableRow
+        android:padding="15dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">

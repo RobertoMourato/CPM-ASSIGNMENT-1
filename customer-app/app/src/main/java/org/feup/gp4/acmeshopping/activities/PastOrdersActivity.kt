@@ -1,23 +1,18 @@
-package org.feup.apm.lunchlist4.activities
+package org.feup.gp4.acmeshopping.activities
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.MenuItem
 import android.widget.TableLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import org.feup.apm.lunchlist4.R
-import org.feup.apm.lunchlist4.addBackButton
-import org.feup.apm.lunchlist4.entities.Token
-import org.feup.apm.lunchlist4.httpRequests.PaymentInfo
-import org.feup.apm.lunchlist4.httpRequests.getAllPastOrders
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+import org.feup.gp4.acmeshopping.R
+import org.feup.gp4.acmeshopping.addBackButton
+import org.feup.gp4.acmeshopping.httpRequests.PaymentInfo
+import org.feup.gp4.acmeshopping.httpRequests.getAllPastOrders
 import java.util.*
 
 class PastOrdersActivity : AppCompatActivity() {

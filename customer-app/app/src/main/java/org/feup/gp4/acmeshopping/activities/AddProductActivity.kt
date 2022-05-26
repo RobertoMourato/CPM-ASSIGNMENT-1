@@ -1,14 +1,14 @@
-package org.feup.apm.lunchlist4.activities
+package org.feup.gp4.acmeshopping.activities
 
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import org.feup.apm.lunchlist4.R
-import org.feup.apm.lunchlist4.entities.SQLiteDbHelper
-import org.feup.apm.lunchlist4.httpRequests.Product
-import org.feup.apm.lunchlist4.httpRequests.getProductByID
+import org.feup.gp4.acmeshopping.R
+import org.feup.gp4.acmeshopping.entities.SQLiteDbHelper
+import org.feup.gp4.acmeshopping.httpRequests.Product
+import org.feup.gp4.acmeshopping.httpRequests.getProductByID
 import java.lang.Integer.max
 
 class AddProductActivity : AppCompatActivity() {

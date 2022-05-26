@@ -1,4 +1,4 @@
-package org.feup.apm.lunchlist4.activities
+package org.feup.gp4.acmeshopping.activities
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -9,31 +9,43 @@ import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import org.feup.apm.lunchlist4.R
-import org.feup.apm.lunchlist4.addBackButton
-import org.feup.apm.lunchlist4.httpRequests.PaymentInfo
-import org.feup.apm.lunchlist4.httpRequests.Product
+import androidx.core.view.children
+import org.feup.gp4.acmeshopping.R
+import org.feup.gp4.acmeshopping.addBackButton
+import org.feup.gp4.acmeshopping.httpRequests.PaymentInfo
+import org.feup.gp4.acmeshopping.httpRequests.Product
 
 class OrderPageActivity : AppCompatActivity() {
     private val payBtn by lazy { findViewById<Button>(R.id.cartPayButton) }
     private val cartTableLayout by lazy { findViewById<TableLayout>(R.id.cartTableLayout) }
-    private val paymentInfo by lazy { intent.getSerializableExtra(R.string.intent_qr_code_payment.toString()) as PaymentInfo }
+    private lateinit var paymentInfo: PaymentInfo
     private var counter = 1
+    private val totalPriceView by lazy { findViewById<TextView>(R.id.cartTotalPrice) }
 
 
+
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cart)
         payBtn.visibility = GONE
+        paymentInfo =
+            intent.getSerializableExtra(R.string.intent_qr_code_payment.toString()) as PaymentInfo
+        addProducts()
+        addBackButton(supportActionBar)
+    }
+
+    private fun addProducts() {
+        var total = 0.0f
         runOnUiThread {
             paymentInfo.products.forEach {
                 addRow(it)
+                total += it.price * it.quantity
             }
+            totalPriceView.text = "%.2f".format(total) + "€"
         }
-
-
-        addBackButton(supportActionBar)
     }
+
 
     @SuppressLint("SetTextI18n")
     fun addRow(product: Product) {

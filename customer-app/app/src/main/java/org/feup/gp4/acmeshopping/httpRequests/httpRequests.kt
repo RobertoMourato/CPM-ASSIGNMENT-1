@@ -1,4 +1,4 @@
-package org.feup.apm.lunchlist4.httpRequests
+package org.feup.gp4.acmeshopping.httpRequests
 
 import java.io.*
 

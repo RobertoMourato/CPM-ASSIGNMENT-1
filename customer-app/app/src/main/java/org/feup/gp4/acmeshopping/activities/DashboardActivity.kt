@@ -1,4 +1,4 @@
-package org.feup.apm.lunchlist4.activities
+package org.feup.gp4.acmeshopping.activities
 
 import android.app.Activity
 import android.app.AlertDialog
@@ -7,12 +7,10 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
-import android.widget.EditText
-import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import org.feup.apm.lunchlist4.R
+import org.feup.gp4.acmeshopping.R
 
 
 

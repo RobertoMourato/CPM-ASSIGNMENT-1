@@ -7,6 +7,8 @@
     android:layout_margin="5dp"
     android:visibility="visible">
 
+
+
     <TextView
         android:id="@+id/cartModel"
         android:layout_width="0dp"
@@ -31,6 +33,13 @@
         android:gravity="right"
         android:padding="18dip"
         android:text="@string/cart_price_test" />
+
+
+    <Button
+        android:id="@+id/deleteProduct"
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:text="@string/x" />
 
 
 </TableRow>

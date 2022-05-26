@@ -1,17 +1,15 @@
-package org.feup.apm.lunchlist4.activities
+package org.feup.gp4.acmeshopping.activities
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import org.feup.apm.lunchlist4.R
-import org.feup.apm.lunchlist4.crypto.generateKeyPair
-import org.feup.apm.lunchlist4.crypto.getKeyPair
-import org.feup.apm.lunchlist4.httpRequests.registerUser
+import org.feup.gp4.acmeshopping.R
+import org.feup.gp4.acmeshopping.crypto.generateKeyPair
+import org.feup.gp4.acmeshopping.crypto.getKeyPair
+import org.feup.gp4.acmeshopping.httpRequests.registerUser
 
 
 const val ID_EXTRA = "org.feup.cpm.acme.customer"

@@ -1,16 +1,18 @@
-package org.feup.apm.lunchlist4.activities
+package org.feup.gp4.acmeshopping.activities
 
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Button
+import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import org.feup.apm.lunchlist4.R
-import org.feup.apm.lunchlist4.addBackButton
-import org.feup.apm.lunchlist4.httpRequests.Product
+import org.feup.gp4.acmeshopping.R
+import org.feup.gp4.acmeshopping.addBackButton
+import org.feup.gp4.acmeshopping.entities.SQLiteDbHelper
+import org.feup.gp4.acmeshopping.httpRequests.Product
 
 class ProductActivity : AppCompatActivity() {
     //    Buttons
@@ -28,6 +30,11 @@ class ProductActivity : AppCompatActivity() {
     private val productQty by lazy { findViewById<TextView>(R.id.productQtyInv) }
     private val product by lazy { intent.getSerializableExtra(R.string.product.toString()) as Product }
     private val productQuantityToAdd by lazy { findViewById<TextView>(R.id.productQty) }
+
+    private val table by lazy { findViewById<TableLayout>(R.id.productTable) }
+
+    private val dbHelper by lazy { SQLiteDbHelper(this) }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +54,10 @@ class ProductActivity : AppCompatActivity() {
         productQty.text = product.quantity.toString()
         productID.text = product.id
 
-        addBackButton(supportActionBar)
+        runOnUiThread {
+            addBackButton(supportActionBar)
+            addRemoveButton()
+        }
 
     }
 
@@ -57,6 +67,16 @@ class ProductActivity : AppCompatActivity() {
             finish() //do here something what you want on clicks on the Home/Up button
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun addRemoveButton() {
+        val button = layoutInflater.inflate(R.layout.deletebutton, null)
+        button.setOnClickListener {
+            val product = dbHelper.delete(product)
+            finish()
+        }
+
+        table.addView(button)
     }
 
 }

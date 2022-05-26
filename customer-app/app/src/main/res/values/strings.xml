@@ -69,4 +69,7 @@
   <string name="intent_qr_code_payment">Payment</string>
   <string name="product">Product</string>
   <string name="empty_cart">The shopping cart is empty.</string>
+    <string name="cart_remove_button">Remove from shopping cart</string>
+    <string name="intent_payment">Payment</string>
+    <string name="x">X</string>
 </resources>

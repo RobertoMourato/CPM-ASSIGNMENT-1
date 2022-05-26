@@ -1,8 +1,8 @@
-package org.feup.apm.lunchlist4.httpRequests
+package org.feup.gp4.acmeshopping.httpRequests
 
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
-import org.feup.apm.lunchlist4.activities.REMOTE_ADDRESS
+import org.feup.gp4.acmeshopping.activities.REMOTE_ADDRESS
 import org.json.JSONObject
 import org.json.JSONTokener
 import java.io.Serializable

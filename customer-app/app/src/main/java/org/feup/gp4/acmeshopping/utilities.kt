@@ -1,6 +1,4 @@
-package org.feup.apm.lunchlist4
-
-import android.app.ActionBar
+package org.feup.gp4.acmeshopping
 
 fun addBackButton(supportActionBar: androidx.appcompat.app.ActionBar?) {
     supportActionBar?.setDisplayHomeAsUpEnabled(true);

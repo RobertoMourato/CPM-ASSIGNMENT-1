@@ -1,4 +1,4 @@
-package org.feup.apm.lunchlist4.activities
+package org.feup.gp4.acmeshopping.activities
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -6,14 +6,16 @@ import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewManager
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import org.feup.apm.lunchlist4.R
-import org.feup.apm.lunchlist4.addBackButton
-import org.feup.apm.lunchlist4.entities.SQLiteDbHelper
-import org.feup.apm.lunchlist4.httpRequests.Product
-import org.feup.apm.lunchlist4.httpRequests.pay
+import org.feup.gp4.acmeshopping.R
+import org.feup.gp4.acmeshopping.addBackButton
+import org.feup.gp4.acmeshopping.entities.SQLiteDbHelper
+import org.feup.gp4.acmeshopping.httpRequests.PaymentInfo
+import org.feup.gp4.acmeshopping.httpRequests.Product
+import org.feup.gp4.acmeshopping.httpRequests.pay
 
 class CartActivity : AppCompatActivity() {
     // DB helper
@@ -32,25 +34,30 @@ class CartActivity : AppCompatActivity() {
 
     private lateinit var products: List<Product>
 
+
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cart)
 
+        addProducts()
+
+        payButton.setOnClickListener { _ -> _pay() }
+        addBackButton(supportActionBar)
+    }
+
+    private fun addProducts(addRow: Boolean = true) {
         products = dbHelper.getAll()
         var totalPrice = 0.0f
         if (products.isEmpty()) onEmpty()
+
         for (product in products) {
-            addRow(product)
+            if (addRow)
+                addRow(product)
             totalPrice += product.price * product.quantity
         }
         totalPriceView.text = "%.2f".format(totalPrice) + "€"
-
-        payButton.setOnClickListener { _ -> _pay() }
-
-
-        addBackButton(supportActionBar)
     }
 
     private fun onEmpty() {
@@ -60,7 +67,7 @@ class CartActivity : AppCompatActivity() {
             cartHeader.visibility = View.GONE
             totalPriceLabelView.visibility = View.GONE
             val inflater = layoutInflater
-            val textView = inflater.inflate(R.layout.empty_cart,null)
+            val textView = inflater.inflate(R.layout.empty_cart, null)
             cartTableLayout.addView(textView)
         }
     }
@@ -108,6 +115,14 @@ class CartActivity : AppCompatActivity() {
 
         val priceTextView = rowView.findViewById<TextView>(R.id.cartPrice)
         priceTextView?.text = "%.2f".format(product.price) + "€"
+
+        val removeButton = rowView.findViewById<Button>(R.id.deleteProduct)
+        removeButton.setOnClickListener {
+            dbHelper.delete(product)
+            (rowView.parent as ViewManager).removeView(rowView)
+            addProducts(false)
+            counter--
+        }
 
         rowView.setOnClickListener {
             val intent = Intent(this, ProductActivity::class.java).apply {

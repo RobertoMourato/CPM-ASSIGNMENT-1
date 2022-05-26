@@ -7,7 +7,7 @@ android {
   compileSdk 31
 
   defaultConfig {
-    applicationId "org.feup.apm.lunchlist4"
+    applicationId "org.feup.gp4.acmeshopping"
     minSdk 25
     targetSdk 31
     versionCode 1

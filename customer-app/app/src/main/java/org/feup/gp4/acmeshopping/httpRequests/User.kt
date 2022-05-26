@@ -1,4 +1,4 @@
-package org.feup.apm.lunchlist4.httpRequests
+package org.feup.gp4.acmeshopping.httpRequests
 
 import android.app.Activity
 import android.content.Context
@@ -6,13 +6,13 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
-import org.feup.apm.lunchlist4.activities.MainActivity
-import org.feup.apm.lunchlist4.R
-import org.feup.apm.lunchlist4.activities.REMOTE_ADDRESS
-import org.feup.apm.lunchlist4.crypto.decrypt
-import org.feup.apm.lunchlist4.crypto.getKeyPair
-import org.feup.apm.lunchlist4.crypto.keyToB64
-import org.feup.apm.lunchlist4.entities.Token
+import org.feup.gp4.acmeshopping.activities.MainActivity
+import org.feup.gp4.acmeshopping.R
+import org.feup.gp4.acmeshopping.activities.REMOTE_ADDRESS
+import org.feup.gp4.acmeshopping.crypto.decrypt
+import org.feup.gp4.acmeshopping.crypto.getKeyPair
+import org.feup.gp4.acmeshopping.crypto.keyToB64
+import org.feup.gp4.acmeshopping.entities.Token
 import org.json.JSONObject
 import org.json.JSONTokener
 import java.io.DataOutputStream

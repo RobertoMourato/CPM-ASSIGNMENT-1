@@ -1,13 +1,11 @@
-package org.feup.apm.lunchlist4.crypto
+package org.feup.gp4.acmeshopping.crypto
 
-import android.app.Activity
 import android.os.Build
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
 import androidx.annotation.RequiresApi
-import org.feup.apm.lunchlist4.R
+import org.feup.gp4.acmeshopping.R
 import java.security.*
-import java.security.spec.X509EncodedKeySpec
 import java.util.*
 import javax.crypto.Cipher
 

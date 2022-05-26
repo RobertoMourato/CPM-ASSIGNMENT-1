@@ -1,4 +1,4 @@
-package org.feup.apm.lunchlist4.entities
+package org.feup.gp4.acmeshopping.entities
 
 import android.content.ContentValues
 import android.content.Context
@@ -9,12 +9,11 @@ import android.os.Build
 import android.provider.BaseColumns
 import androidx.annotation.RequiresApi
 import com.google.gson.annotations.SerializedName
-import org.feup.apm.lunchlist4.crypto.decrypt
-import org.feup.apm.lunchlist4.httpRequests.Product
+import org.feup.gp4.acmeshopping.crypto.decrypt
+import org.feup.gp4.acmeshopping.httpRequests.Product
 import java.lang.Exception
 import java.net.URLDecoder
 import java.net.URLEncoder
-import java.util.*
 
 
 // If you change the database schema, you must increment the database version.
@@ -228,6 +227,14 @@ class SQLiteDbHelper(context: Context) :
                 token.token,
                 token.requestDate
             )
+        )
+    }
+
+    fun delete(product:Product): Int {
+        return writableDatabase.delete(
+            ProductEntry.TABLE_NAME,
+            "${ProductEntry.COLUMN_NAME_BARCODE}=?",
+            arrayOf(product.id)
         )
     }
 
