@@ -48,7 +48,7 @@
 <!--  Shopping Cart-->
   <string name="cart_model_test">aokisdnfjkasdkjfnakjsdnfkasjdnfkjasdfnkjasdnfkjasndkjfanskjdfnjkasdnfakjsdnfkajsdnfkjasdnfkjasndkfjnaskjdfnkasjdfjkasndkjfnaskjdfnkjaskdjfnajksdnfkjasndfkjasndkfjnaskdfaskdj</string>
   <string name="cart_qty_test">10</string>
-  <string name="cart_price_test">10€</string>
+  <string name="cart_price_test">0€</string>
   <string name="cart_model_label">Model</string>
   <string name="cart_qty_label">Qty.</string>
   <string name="cart_price_label">Price</string>
@@ -61,4 +61,10 @@
   <string name="past_order_date_label">Order Date</string>
   <string name="past_order_title">Select a past order</string>
   <string name="lkanmsdkf">lkanmsdkf</string>
+
+
+<!--  QR Code-->
+  <string name="qr_code_button_label">View Order Details</string>
+
+  <string name="intent_qr_code_payment">Payment</string>
 </resources>

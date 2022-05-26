@@ -1,8 +1,10 @@
 package org.feup.apm.lunchlist4.activities
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
@@ -18,6 +20,7 @@ import java.util.*
 
 class QRCodeActivity : AppCompatActivity() {
     private val paymentInfo by lazy { intent.getSerializableExtra("payment") as PaymentInfo }
+    private val viewDetailsBtn by lazy { findViewById<Button>(R.id.qrCodeViewDetailsButton) }
     private val dbHelper by lazy { SQLiteDbHelper(this) }
     private val SIZE = 500
     private val ISO_SET = "ISO-8859-1"
@@ -34,6 +37,15 @@ class QRCodeActivity : AppCompatActivity() {
         Thread {
             encodeAsBitmap(content).also { runOnUiThread { image.setImageBitmap(it) } }
         }.start()
+
+        viewDetailsBtn.setOnClickListener { _ -> viewDetails() }
+    }
+
+    private fun viewDetails() {
+        val intent = Intent(this, OrderPageActivity::class.java).apply {
+            putExtra(R.string.intent_qr_code_payment.toString(), paymentInfo)
+        }
+        startActivity(intent)
     }
 
     private fun encodeAsBitmap(str: String): Bitmap? {
