@@ -36,6 +36,7 @@
   <string name="product_model_label">Model: </string>
   <string name="product_manufacturer_label">Manufacturer: </string>
   <string name="product_price_label">Price: </string>
+  <string name="product_qty_label">Quantity: </string>
   <string name="product_description_label">Description: </string>
   <string name="product_btn_inc">+</string>
   <string name="product_btn_inc10">+10</string>
@@ -60,11 +61,12 @@
 <!--  Past Order -->
   <string name="past_order_date_label">Order Date</string>
   <string name="past_order_title">Select a past order</string>
-  <string name="lkanmsdkf">lkanmsdkf</string>
 
 
 <!--  QR Code-->
   <string name="qr_code_button_label">View Order Details</string>
 
   <string name="intent_qr_code_payment">Payment</string>
+  <string name="product">Product</string>
+  <string name="empty_cart">The shopping cart is empty.</string>
 </resources>

@@ -5,11 +5,13 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.view.MenuItem
 import android.widget.TableLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import org.feup.apm.lunchlist4.R
+import org.feup.apm.lunchlist4.addBackButton
 import org.feup.apm.lunchlist4.entities.Token
 import org.feup.apm.lunchlist4.httpRequests.PaymentInfo
 import org.feup.apm.lunchlist4.httpRequests.getAllPastOrders
@@ -39,7 +41,18 @@ class PastOrdersActivity : AppCompatActivity() {
             }
         }.start()
 
+        addBackButton(supportActionBar)
+
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id: Int = item.itemId
+        if (id == android.R.id.home) {
+            finish() //do here something what you want on clicks on the Home/Up button
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 
     @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)

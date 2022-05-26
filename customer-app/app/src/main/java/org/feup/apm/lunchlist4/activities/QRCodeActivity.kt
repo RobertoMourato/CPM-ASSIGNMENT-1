@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -14,6 +15,7 @@ import com.google.zxing.EncodeHintType
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.common.BitMatrix
 import org.feup.apm.lunchlist4.R
+import org.feup.apm.lunchlist4.addBackButton
 import org.feup.apm.lunchlist4.entities.SQLiteDbHelper
 import org.feup.apm.lunchlist4.httpRequests.PaymentInfo
 import java.util.*
@@ -39,6 +41,16 @@ class QRCodeActivity : AppCompatActivity() {
         }.start()
 
         viewDetailsBtn.setOnClickListener { _ -> viewDetails() }
+
+        addBackButton(supportActionBar)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id: Int = item.itemId
+        if (id == android.R.id.home) {
+            finish() //do here something what you want on clicks on the Home/Up button
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun viewDetails() {

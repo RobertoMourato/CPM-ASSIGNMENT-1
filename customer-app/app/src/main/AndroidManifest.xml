@@ -32,6 +32,7 @@
     <activity android:name=".activities.PastOrdersActivity" android:exported="false"/>
     <activity android:name=".activities.OrderPageActivity" android:exported="false"/>
     <activity android:name=".activities.QRCodeActivity" android:exported="false"/>
+    <activity android:name=".activities.ProductActivity" android:exported="false"/>
 
   </application>
 

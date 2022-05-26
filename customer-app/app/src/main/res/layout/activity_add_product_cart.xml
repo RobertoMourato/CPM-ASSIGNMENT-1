@@ -10,6 +10,7 @@
     android:layout_weight="1">
 
     <TableRow
+        android:padding="15dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
@@ -29,6 +30,7 @@
     </TableRow>
 
     <TableRow
+        android:padding="15dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -48,6 +50,7 @@
     </TableRow>
 
     <TableRow
+        android:padding="15dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -67,6 +70,7 @@
     </TableRow>
 
     <TableRow
+        android:padding="15dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -85,7 +89,10 @@
 
     </TableRow>
 
+
+
     <TableRow
+        android:padding="15dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -106,6 +113,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </ScrollView>
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/productQtyInvLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/product_qty_label"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/productQtyInv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
     </TableRow>
 
