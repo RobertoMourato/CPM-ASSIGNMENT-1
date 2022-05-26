@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".activities.QRCodeActivity">
+
+    <ImageView
+        android:id="@+id/img_code"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="15dp"
+        android:layout_weight="1"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/qrCodeViewDetailsButton"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_weight="0"
+        android:layout_margin="15dp"
+        android:text="@string/qr_code_button_label"
+        android:textAlignment="center" />
+
+
+</LinearLayout>

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerVertical="false"
+    android:layout_marginLeft="5dp"
+    android:layout_marginTop="30dp"
+    android:layout_marginEnd="5dp"
+    android:layout_weight="1">
+
+    <TableRow
+        android:padding="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/productIDLabel"
+            android:layout_width="113dp"
+            android:layout_height="wrap_content"
+            android:text="@string/product_id_label"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/productID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </TableRow>
+
+    <TableRow
+        android:padding="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/productModelLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/product_model_label"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/productModel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </TableRow>
+
+    <TableRow
+        android:padding="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/productPriceLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/product_price_label"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/productPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </TableRow>
+
+    <TableRow
+        android:padding="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/productManufacturerLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/product_manufacturer_label"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/productManufacturer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </TableRow>
+
+
+
+    <TableRow
+        android:padding="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/productDescriptionLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/product_description_label"
+            android:textStyle="bold" />
+
+        <ScrollView
+            android:layout_width="332dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/productDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </ScrollView>
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/productQtyInvLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/product_qty_label"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/productQtyInv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/TableRow"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/productQtyDecrease"
+            android:layout_width="1dp"
+            android:layout_height="70dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="@string/product_btn_dec"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/productQty"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="1"
+            android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/productQtyIncrease"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="@string/product_btn_inc"
+            android:textSize="24sp" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/productAddToCart"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="@string/product_btn_add_cart" />
+
+        <Button
+            android:id="@+id/productCancel"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="@string/product_cancel" />
+    </TableRow>
+
+</TableLayout>

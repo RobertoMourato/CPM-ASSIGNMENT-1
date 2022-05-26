@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:isScrollContainer="true"
+    android:id="@id/pastOrderTable">
+
+    <TextView
+        android:id="@+id/pastOrderTitle"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:ellipsize="end"
+        android:gravity="clip_horizontal|start"
+        android:maxLines="1"
+        android:padding="18dp"
+        android:text="@string/past_order_title"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+
+
+</TableLayout>

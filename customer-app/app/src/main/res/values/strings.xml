@@ -1,0 +1,72 @@
+<resources>
+  <string name="app_name">ACME</string>
+  <string name="tv_name">Name:</string>
+  <string name="tv_address">Address:</string>
+  <string name="tv_type">Type:</string>
+  <string name="rb_take">Take-Out</string>
+  <string name="rb_sit">Sit-Down</string>
+  <string name="rb_delivery">Delivery</string>
+  <string name="tv_notes">Notes:</string>
+  <string name="bt_save">Save</string>
+  <string name="mn_it_toast">Raise Toast</string>
+  <string name="mn_it_add">Add new restaurant</string>
+  <string name="lv_empty_msg">Activate the menu item to add a restaurant!</string>
+  <string name="ed_name_hint">Name</string>
+  <string name="ed_address_hint">Address</string>
+  <string name="ed_notes_hint">Notes</string>
+
+<!--  Cenas Novas -->
+  <string name="reg_name">Name:</string>
+  <string name="reg_address">Address:</string>
+  <string name="reg_nif">NIF:</string>
+  <string name="reg_card_type">Card type:</string>
+  <string name="reg_card_number">Card number:</string>
+  <string name="reg_card_expiry_date">Card Expiration Date:</string>
+  <string name="reg_button_text">Register</string>
+  <string name="keypair_alias">PrivatePublic</string>
+  <string name="uuid_alias">UUID</string>
+
+<!--  Dashboard -->
+  <string name="dash_btn_scan">Scan Barcode</string>
+  <string name="dash_btn_cart">Show Cart</string>
+  <string name="dash_btn_past_orders">Show Past Orders</string>
+
+<!--  Product information -->
+  <string name="product_id_label">ID: </string>
+  <string name="product_model_label">Model: </string>
+  <string name="product_manufacturer_label">Manufacturer: </string>
+  <string name="product_price_label">Price: </string>
+  <string name="product_qty_label">Quantity: </string>
+  <string name="product_description_label">Description: </string>
+  <string name="product_btn_inc">+</string>
+  <string name="product_btn_inc10">+10</string>
+  <string name="product_btn_dec10">-10</string>
+  <string name="product_btn_dec">-</string>
+  <string name="product_btn_add_cart">Add to Cart</string>
+  <string name="product_cancel">Cancel</string>
+  <string name="product_intent_barcode">productBarCode</string>
+
+<!--  Shopping Cart-->
+  <string name="cart_model_test">aokisdnfjkasdkjfnakjsdnfkasjdnfkjasdfnkjasdnfkjasndkjfanskjdfnjkasdnfakjsdnfkajsdnfkjasdnfkjasndkfjnaskjdfnkasjdfjkasndkjfnaskjdfnkjaskdjfnajksdnfkjasndfkjasndkfjnaskdfaskdj</string>
+  <string name="cart_qty_test">10</string>
+  <string name="cart_price_test">0€</string>
+  <string name="cart_model_label">Model</string>
+  <string name="cart_qty_label">Qty.</string>
+  <string name="cart_price_label">Price</string>
+  <string name="cart_total_label">Total:</string>
+  <string name="cart_total_test">15€</string>
+  <string name="cart_pay_button">Pay</string>
+
+
+<!--  Past Order -->
+  <string name="past_order_date_label">Order Date</string>
+  <string name="past_order_title">Select a past order</string>
+
+
+<!--  QR Code-->
+  <string name="qr_code_button_label">View Order Details</string>
+
+  <string name="intent_qr_code_payment">Payment</string>
+  <string name="product">Product</string>
+  <string name="empty_cart">The shopping cart is empty.</string>
+</resources>

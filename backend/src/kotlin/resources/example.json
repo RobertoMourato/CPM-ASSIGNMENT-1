@@ -1,0 +1,30 @@
+{
+  "customer": {
+    "name": "antonio",
+    "address": "sardinha",
+    "nif": 265505429
+  },
+  "payment": {
+    "items": [
+      {
+        "id": 1,
+        "quantity": 3,
+        "model": "iPhone SE 2022",
+        "make": "Apple",
+        "price": 499.99,
+        "characteristic": "64GB, Red"
+      },
+      {
+        "id": 2,
+        "quantity": 1,
+        "model": "iPhone 11 Pro",
+        "make": "Apple",
+        "price": 519.99,
+        "characteristic": "64GB, Black"
+      }
+    ],
+    "price": 2019.96,
+    "date": "12/5/2022",
+    "time": "12:30:49"
+  }
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cartRowTemplate"
+    android:layout_width="fill_parent"
+    android:layout_height="90dp"
+    android:layout_margin="5dp"
+    android:visibility="visible">
+
+    <TextView
+        android:id="@+id/cartModel"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:ellipsize="end"
+        android:gravity="clip_horizontal|left"
+        android:maxLines="1"
+        android:padding="18dip"
+        android:text="@string/cart_model_test" />
+
+    <TextView
+        android:id="@+id/cartQty"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="18dip"
+        android:text="@string/cart_qty_test" />
+
+    <TextView
+        android:id="@+id/cartPrice"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="right"
+        android:padding="18dip"
+        android:text="@string/cart_price_test" />
+
+
+</TableRow>

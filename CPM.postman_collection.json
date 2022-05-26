@@ -1,0 +1,235 @@
+{
+	"info": {
+		"_postman_id": "8ff8df90-3d07-4b26-9330-0c37da39fc7f",
+		"name": "CPM",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13141964"
+	},
+	"item": [
+		{
+			"name": "Get All Products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Product By Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/products/{{Id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"{{Id}}"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Customers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/customers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create New Customer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"publicKey\": \"MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAIsbt/wO4mnDGD3s3GAUThBocrKE+9FZu0PxMh2FV2qJHqkkqkvdbyGJGH75/k22uIyL5s9N5aEPPHJy6Pl9FmUCAwEAAQ==\",\r\n    \"name\": \"antonio\",\r\n    \"address\": \"sardinha\",\r\n    \"nif\": 265505429,\r\n    \"cardType\": \"cenas\",\r\n    \"cardNumber\": 6250941006528599,\r\n    \"cardValidity\": \"01-31-2023\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/customers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Past Payments",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Client-Id",
+						"value": "937abc87-0801-493a-ab78-327733a42d34",
+						"type": "text"
+					},
+					{
+						"key": "Request-Time",
+						"value": "2019-05-28T12:12:12+08:00",
+						"type": "text"
+					},
+					{
+						"key": "Signature",
+						"value": "HVEAnY4kxqJAIhy8dbPsqClN1hlwtz8D6k5g3uUloCp1hxHTindCuxVuCuoDDUkHxGuEfOeQPvNAKsDNeI7g8g%3D%3D",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/payments/past",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"payments",
+						"past"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Payment",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Client-Id",
+						"value": "34fdab42-9793-4732-b89a-b35f058ec285",
+						"type": "text"
+					},
+					{
+						"key": "Request-Time",
+						"value": "2019-05-28T12:12:12+08:00",
+						"type": "text"
+					},
+					{
+						"key": "Signature",
+						"value": "HVEAnY4kxqJAIhy8dbPsqClN1hlwtz8D6k5g3uUloCp1hxHTindCuxVuCuoDDUkHxGuEfOeQPvNAKsDNeI7g8g%3D%3D",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"items\": [\n        {\n            \"quantity\": 3,\n            \"model\": \"iPhone SE 2022\",\n            \"make\": \"Apple\",\n            \"price\": 499.99,\n            \"characteristic\": \"64GB, Red\"\n        },\n        {\n            \"quantity\": 1,\n            \"model\": \"iPhone 11 Pro\",\n            \"make\": \"Apple\",\n            \"price\": 519.99,\n            \"characteristic\": \"64GB, Black\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/payments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"payments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Receipt Information",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Token",
+						"value": "f2893182-4413-49b7-981d-f7513fc74335",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/payments/receipt",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"payments",
+						"receipt"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "Id",
+			"value": "128534783579"
+		}
+	]
+}
